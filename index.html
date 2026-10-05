@@ -200,7 +200,7 @@
                 <p class="text-xs sm:text-sm font-bold text-indigo-600 uppercase tracking-wider mb-2">Unscramble the Letters</p>
                 
                 <button onclick="playTargetWord()" class="btn-bounce text-indigo-600 bg-indigo-50 hover:bg-indigo-100 px-4 py-2 rounded-xl text-sm font-bold mb-4 flex items-center gap-2 border border-indigo-200">
-                    <i class="fa-solid fa-volume-high"></i> Hear Pronunciation
+                    <i class="fa-solid fa-volume-high"></i> Hear Word
                 </button>
 
                 <!-- Scramble Tiles Slot Area -->
@@ -312,7 +312,7 @@
             "weeks": [
                 {
                     "id": "week1",
-                    "title": "Week 1: Core Vocabulary",
+                    "title": "Week 1",
                     "words": [
                         { "word": "believe", "sentence": "I believe you can do great things!", "hint": "Trust that something is true" },
                         { "word": "careful", "sentence": "Be careful when walking on slippery ice.", "hint": "Taking caution" },
@@ -328,7 +328,7 @@
                 },
                 {
                     "id": "week2",
-                    "title": "Week 2: Science & Nature",
+                    "title": "Week 2",
                     "words": [
                         { "word": "climate", "sentence": "The rainforest has a warm and humid climate.", "hint": "Weather conditions over time" },
                         { "word": "dinosaur", "sentence": "A fossil of a ancient dinosaur was found.", "hint": "Prehistoric reptile" },
@@ -559,7 +559,7 @@
 
         function playTargetWord(slow = false) {
             const wObj = getCurrentWordObj();
-            if (wObj) speakText(wObj.word, slow ? 0.55 : 0.85);
+            if (wObj) speakText(wObj.word, slow ? 0.35 : 0.85);
         }
 
         function speakSentence() {
