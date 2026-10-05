@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Grade 4 Spelling Bee Practice</title>
+    <title>Grade 4 Weekly Spelling Game</title>
     
     <!-- 
       ===================================================================
@@ -105,7 +105,7 @@
                 </div>
                 <div>
                     <h1 class="text-xl sm:text-2xl font-bold text-gray-800 leading-tight">Spelling Bee</h1>
-                    <p class="text-xs text-gray-500 font-semibold">Grade 4 Weekly Practice</p>
+                    <p class="text-xs text-gray-500 font-semibold">Grade 4 Weekly Spelling Game</p>
                 </div>
             </div>
 
@@ -274,7 +274,7 @@
             <div id="view-complete" class="hidden flex-col items-center justify-center text-center py-6 my-auto">
                 <div class="text-6xl mb-3 animate-bounce">🏆</div>
                 <h2 class="text-3xl font-extrabold text-gray-800 mb-1">Awesome Job!</h2>
-                <p class="text-sm text-gray-500 font-semibold mb-6">You've finished this practice list!</p>
+                <p class="text-sm text-gray-500 font-semibold mb-6">You've leveled up!</p>
 
                 <div class="bg-amber-50 border-2 border-amber-200 rounded-2xl p-4 w-full mb-6 flex justify-around items-center">
                     <div>
@@ -289,7 +289,7 @@
                 </div>
 
                 <button onclick="restartWeekSession()" class="btn-bounce w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold py-4 px-6 rounded-2xl shadow-lg shadow-green-500/30 text-lg flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-rotate-right"></i> Practice Again
+                    <i class="fa-solid fa-rotate-right"></i> Play Again
                 </button>
             </div>
 
@@ -754,7 +754,7 @@
             document.getElementById('flashcard-inner').classList.remove('rotate-y-180');
             
             document.getElementById('card-front-word').innerText = wObj.word.toUpperCase();
-            document.getElementById('card-back-hint').innerText = wObj.hint || "Grade 4 Practice Word";
+            document.getElementById('card-back-hint').innerText = wObj.hint || "Grade 4 Word";
             document.getElementById('card-back-sentence').innerText = wObj.sentence || `"${wObj.word}"`;
         }
 
