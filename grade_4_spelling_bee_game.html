@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Grade 4 Spelling Bee Practice</title>
+    
+    <!-- 
+      ===================================================================
+      GITHUB PAGES DEPLOYMENT INSTRUCTIONS:
+      1. Save this code as `index.html` in your GitHub repository root.
+      2. Create a file named `words.json` in the same directory.
+      3. Example `words.json` structure:
+         {
+           "weeks": [
+             {
+               "id": "week1",
+               "title": "Week 1: Grade 4 Core Vocabulary",
+               "words": [
+                 { "word": "believe", "sentence": "I believe you can do great things!", "hint": "Trust that something is true" },
+                 { "word": "careful", "sentence": "Be careful when crossing the street.", "hint": "Taking caution" }
+               ]
+             }
+           ]
+         }
+      4. Enable GitHub Pages from repository settings -> Pages -> Deploy from main branch.
+      ===================================================================
+    -->
+
+    <!-- Tailwind CSS for utility styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts for kid-friendly typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome for iconography -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Canvas Confetti for victory celebrations -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <style>
+        * {
+            touch-action: manipulation; /* Improves touch responsiveness on iOS/Android */
+        }
+        body {
+            font-family: 'Fredoka', 'Nunito', sans-serif;
+            background: linear-gradient(135deg, #e0f2fe 0%, #fbcfe8 50%, #fef3c7 100%);
+            min-height: 100vh;
+        }
+
+        /* 3D Flashcard flip animation */
+        .perspective-1000 {
+            perspective: 1000px;
+        }
+        .transform-style-3d {
+            transform-style: preserve-3d;
+        }
+        .backface-hidden {
+            backface-visibility: hidden;
+        }
+        .rotate-y-180 {
+            transform: rotateY(180deg);
+        }
+
+        /* Shake animation for error feedback */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-12px); }
+            40%, 80% { transform: translateX(12px); }
+        }
+        .shake {
+            animation: shake 0.4s ease-in-out;
+            border-color: #ef4444 !important;
+            background-color: #fef2f2 !important;
+        }
+
+        /* Pulse animation for correct answers */
+        @keyframes pulse-success {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+            100% { transform: scale(1); }
+        }
+        .pulse-success {
+            animation: pulse-success 0.4s ease-in-out;
+            border-color: #22c55e !important;
+            background-color: #f0fdf4 !important;
+        }
+
+        /* Touch-friendly soft bouncy buttons */
+        .btn-bounce {
+            transition: transform 0.1s ease, box-shadow 0.1s ease;
+        }
+        .btn-bounce:active {
+            transform: scale(0.94);
+        }
+    </style>
+</head>
+<body class="flex flex-col items-center justify-between p-3 sm:p-6 min-h-screen">
+
+    <div class="w-full max-w-2xl mx-auto flex-grow flex flex-col justify-between">
+        
+        <!-- Header & Week Dropdown -->
+        <header class="w-full bg-white/80 backdrop-blur-md rounded-2xl p-4 mb-4 shadow-md border border-white/60 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div class="flex items-center gap-3">
+                <div class="bg-amber-400 text-white w-12 h-12 rounded-2xl flex items-center justify-center text-2xl shadow-sm">
+                    <i class="fa-solid fa-bee"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl sm:text-2xl font-bold text-gray-800 leading-tight">Spelling Bee</h1>
+                    <p class="text-xs text-gray-500 font-semibold">Grade 4 Weekly Practice</p>
+                </div>
+            </div>
+
+            <!-- Dynamic Week Selector -->
+            <div class="w-full sm:w-auto">
+                <select id="week-select" onchange="switchWeek(this.value)" class="w-full sm:w-auto bg-amber-50 border-2 border-amber-300 text-gray-800 text-sm font-bold rounded-xl px-3 py-2 focus:outline-none focus:border-amber-500 cursor-pointer shadow-sm">
+                    <option value="">Loading lists...</option>
+                </select>
+            </div>
+        </header>
+
+        <!-- Mode Navigation Tabs -->
+        <div class="flex justify-center gap-2 mb-4 bg-white/60 p-1.5 rounded-2xl border border-white/40 shadow-inner">
+            <button id="tab-test" onclick="switchMode('test')" class="flex-1 py-2 px-3 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-1.5 transition-all bg-white text-purple-600 shadow-sm">
+                <i class="fa-solid fa-pen-to-square text-base"></i>
+                <span>Test</span>
+            </button>
+            <button id="tab-scramble" onclick="switchMode('scramble')" class="flex-1 py-2 px-3 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-1.5 transition-all text-gray-600 hover:text-purple-600">
+                <i class="fa-solid fa-cubes text-base"></i>
+                <span>Scramble</span>
+            </button>
+            <button id="tab-flashcard" onclick="switchMode('flashcard')" class="flex-1 py-2 px-3 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-1.5 transition-all text-gray-600 hover:text-purple-600">
+                <i class="fa-solid fa-cards-blank text-base"></i>
+                <span>Flashcards</span>
+            </button>
+        </div>
+
+        <!-- Main Game Card -->
+        <main class="bg-white rounded-3xl shadow-xl p-5 sm:p-8 relative border-4 border-white/80 flex-grow flex flex-col justify-between mb-4">
+            
+            <!-- Dashboard Stats Bar -->
+            <div id="stats-bar" class="mb-6">
+                <div class="flex justify-between items-center text-xs sm:text-sm font-bold text-gray-500 mb-2">
+                    <span id="progress-text">Word 1 of 10</span>
+                    <div class="flex items-center gap-4">
+                        <span id="streak-text" class="text-orange-500 flex items-center gap-1"><i class="fa-solid fa-fire"></i> 0</span>
+                        <span id="score-text" class="text-green-600 flex items-center gap-1"><i class="fa-solid fa-star"></i> 0</span>
+                    </div>
+                </div>
+                <div class="w-full bg-gray-100 rounded-full h-3 overflow-hidden p-0.5 border border-gray-200">
+                    <div id="progress-bar" class="bg-gradient-to-r from-amber-400 via-purple-500 to-pink-500 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <!-- MODE 1: SPELLING TEST VIEW -->
+            <div id="view-test" class="flex flex-col items-center justify-center text-center my-auto w-full">
+                <div class="w-full bg-blue-50/80 rounded-2xl p-5 mb-5 border-2 border-blue-100 flex flex-col items-center">
+                    <p class="text-xs sm:text-sm font-bold text-blue-600 uppercase tracking-wider mb-3">Listen & Spell</p>
+                    
+                    <div class="flex flex-wrap justify-center gap-3 w-full">
+                        <button onclick="playTargetWord()" class="btn-bounce bg-blue-500 hover:bg-blue-600 text-white font-bold py-3.5 px-6 rounded-2xl shadow-lg shadow-blue-500/30 flex items-center justify-center gap-2 text-base sm:text-lg">
+                            <i class="fa-solid fa-volume-high text-xl"></i> Hear Word
+                        </button>
+                        <button onclick="playTargetWord(true)" class="btn-bounce bg-blue-100 hover:bg-blue-200 text-blue-700 font-bold py-3.5 px-4 rounded-2xl text-sm flex items-center justify-center gap-1">
+                            <i class="fa-solid fa-turtle text-lg"></i> Slow
+                        </button>
+                    </div>
+
+                    <div class="flex flex-wrap justify-center gap-2 mt-4 text-xs font-semibold">
+                        <button onclick="speakSentence()" class="bg-white hover:bg-blue-100 text-blue-700 border border-blue-200 px-3 py-1.5 rounded-xl shadow-sm flex items-center gap-1.5">
+                            <i class="fa-solid fa-comment-dots text-blue-500"></i> Read Sentence
+                        </button>
+                        <button onclick="toggleHint()" class="bg-white hover:bg-amber-100 text-amber-700 border border-amber-200 px-3 py-1.5 rounded-xl shadow-sm flex items-center gap-1.5">
+                            <i class="fa-solid fa-lightbulb text-amber-500"></i> Hint
+                        </button>
+                    </div>
+
+                    <p id="test-hint-text" class="hidden text-xs text-amber-800 bg-amber-50 border border-amber-200 p-2 rounded-xl mt-3 w-full animate-fade-in"></p>
+                </div>
+
+                <form id="spelling-form" onsubmit="checkSpelling(event)" class="w-full relative mb-4">
+                    <input 
+                        type="text" 
+                        id="test-input" 
+                        class="w-full text-center text-2xl sm:text-3xl font-extrabold py-3.5 px-4 rounded-2xl border-4 border-gray-200 focus:outline-none focus:border-purple-400 text-gray-800 transition-all shadow-inner uppercase tracking-wider"
+                        placeholder="TYPE HERE..."
+                        autocomplete="off"
+                        autocorrect="off"
+                        autocapitalize="off"
+                        spellcheck="false"
+                    >
+                    <div id="test-feedback-icon" class="absolute right-4 top-1/2 transform -translate-y-1/2 text-2xl hidden"></div>
+                </form>
+
+                <button onclick="checkSpelling(event)" class="btn-bounce w-full bg-gradient-to-r from-purple-500 to-indigo-600 hover:from-purple-600 hover:to-indigo-700 text-white font-bold py-4 px-6 rounded-2xl shadow-lg shadow-purple-500/30 text-lg transition-all flex items-center justify-center gap-2">
+                    Check Answer <i class="fa-solid fa-circle-check"></i>
+                </button>
+            </div>
+
+            <!-- MODE 2: WORD SCRAMBLE VIEW -->
+            <div id="view-scramble" class="hidden flex-col items-center justify-center text-center my-auto w-full">
+                <p class="text-xs sm:text-sm font-bold text-indigo-600 uppercase tracking-wider mb-2">Unscramble the Letters</p>
+                
+                <button onclick="playTargetWord()" class="btn-bounce text-indigo-600 bg-indigo-50 hover:bg-indigo-100 px-4 py-2 rounded-xl text-sm font-bold mb-4 flex items-center gap-2 border border-indigo-200">
+                    <i class="fa-solid fa-volume-high"></i> Hear Pronunciation
+                </button>
+
+                <!-- Scramble Tiles Slot Area -->
+                <div id="scramble-answer-slots" class="flex flex-wrap justify-center gap-2 mb-6 min-h-[52px]"></div>
+
+                <!-- Available Letter Tiles -->
+                <div id="scramble-letters-pool" class="flex flex-wrap justify-center gap-2 mb-6 bg-slate-50 p-4 rounded-2xl border-2 border-dashed border-slate-200 min-h-[64px] w-full"></div>
+
+                <div class="flex gap-3 w-full">
+                    <button onclick="resetScrambleTiles()" class="btn-bounce w-1/3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold py-3 rounded-xl border border-gray-300 text-sm">
+                        <i class="fa-solid fa-rotate-left"></i> Reset
+                    </button>
+                    <button onclick="checkScrambleAnswer()" class="btn-bounce flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-xl shadow-md shadow-indigo-500/20 text-sm sm:text-base">
+                        Submit Scramble <i class="fa-solid fa-arrow-right ml-1"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- MODE 3: FLASHCARDS VIEW -->
+            <div id="view-flashcard" class="hidden flex-col items-center justify-center my-auto w-full">
+                <p class="text-xs sm:text-sm font-bold text-pink-600 uppercase tracking-wider mb-3 text-center">Tap Card to Flip</p>
+                
+                <!-- 3D Card Container -->
+                <div onclick="flipFlashcard()" class="w-full max-w-sm h-64 perspective-1000 cursor-pointer mx-auto">
+                    <div id="flashcard-inner" class="relative w-full h-full rounded-3xl transition-transform duration-500 transform-style-3d shadow-xl border-4 border-pink-200">
+                        
+                        <!-- Front Face -->
+                        <div class="absolute inset-0 w-full h-full bg-gradient-to-br from-pink-500 to-rose-400 text-white rounded-2xl p-6 flex flex-col items-center justify-center backface-hidden text-center">
+                            <span class="text-xs bg-white/20 px-3 py-1 rounded-full uppercase tracking-widest font-bold mb-4">Target Word</span>
+                            <h3 id="card-front-word" class="text-4xl font-extrabold tracking-wide mb-3">...</h3>
+                            <button onclick="event.stopPropagation(); playTargetWord();" class="btn-bounce bg-white text-pink-600 font-bold p-3 rounded-full shadow-md hover:bg-pink-50">
+                                <i class="fa-solid fa-volume-high text-xl"></i>
+                            </button>
+                        </div>
+
+                        <!-- Back Face -->
+                        <div class="absolute inset-0 w-full h-full bg-white text-gray-800 rounded-2xl p-6 flex flex-col items-center justify-between backface-hidden rotate-y-180 border-2 border-pink-100 text-center">
+                            <div class="w-full">
+                                <span class="text-xs text-pink-500 font-bold uppercase tracking-wider">Context & Meaning</span>
+                                <p id="card-back-hint" class="text-sm font-semibold text-gray-600 mt-2 italic bg-pink-50 p-2 rounded-xl">...</p>
+                            </div>
+                            
+                            <div class="w-full">
+                                <span class="text-xs text-gray-400 font-bold uppercase">Example Sentence</span>
+                                <p id="card-back-sentence" class="text-sm font-bold text-gray-700 mt-1">...</p>
+                            </div>
+
+                            <button onclick="event.stopPropagation(); speakSentence();" class="btn-bounce text-xs bg-pink-100 text-pink-700 font-bold px-3 py-1.5 rounded-lg flex items-center gap-1">
+                                <i class="fa-solid fa-volume-high"></i> Read Sentence
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Flashcard Controls -->
+                <div class="flex justify-between items-center w-full max-w-sm mt-6 gap-3">
+                    <button onclick="navFlashcard(-1)" class="btn-bounce bg-white border border-gray-200 text-gray-700 hover:bg-gray-50 font-bold py-2.5 px-4 rounded-xl text-sm shadow-sm flex items-center gap-1">
+                        <i class="fa-solid fa-chevron-left"></i> Prev
+                    </button>
+                    <button onclick="playTargetWord()" class="btn-bounce bg-pink-500 text-white hover:bg-pink-600 font-bold py-2.5 px-4 rounded-xl text-sm shadow-md flex items-center gap-1">
+                        <i class="fa-solid fa-volume-high"></i> Listen
+                    </button>
+                    <button onclick="navFlashcard(1)" class="btn-bounce bg-white border border-gray-200 text-gray-700 hover:bg-gray-50 font-bold py-2.5 px-4 rounded-xl text-sm shadow-sm flex items-center gap-1">
+                        Next <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- COMPLETION / END SCREEN -->
+            <div id="view-complete" class="hidden flex-col items-center justify-center text-center py-6 my-auto">
+                <div class="text-6xl mb-3 animate-bounce">🏆</div>
+                <h2 class="text-3xl font-extrabold text-gray-800 mb-1">Awesome Job!</h2>
+                <p class="text-sm text-gray-500 font-semibold mb-6">You've finished this practice list!</p>
+
+                <div class="bg-amber-50 border-2 border-amber-200 rounded-2xl p-4 w-full mb-6 flex justify-around items-center">
+                    <div>
+                        <p class="text-xs text-amber-700 font-bold uppercase">Accuracy</p>
+                        <p id="final-score" class="text-2xl font-black text-amber-600">0/0</p>
+                    </div>
+                    <div class="h-8 w-px bg-amber-200"></div>
+                    <div>
+                        <p class="text-xs text-amber-700 font-bold uppercase">Best Streak</p>
+                        <p id="final-streak" class="text-2xl font-black text-amber-600">0</p>
+                    </div>
+                </div>
+
+                <button onclick="restartWeekSession()" class="btn-bounce w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold py-4 px-6 rounded-2xl shadow-lg shadow-green-500/30 text-lg flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-rotate-right"></i> Practice Again
+                </button>
+            </div>
+
+        </main>
+
+        <!-- Footer / Data Load Status Banner -->
+        <footer class="w-full text-center">
+            <div id="status-banner" class="text-xs text-slate-500 font-semibold bg-white/40 backdrop-blur-sm py-1.5 px-3 rounded-full border border-white/50 inline-block shadow-sm">
+                <i class="fa-solid fa-spinner fa-spin mr-1 text-amber-500"></i> Connecting to words.json...
+            </div>
+        </footer>
+
+    </div>
+
+    <script>
+        /* ===================================================================
+           1. DEFAULT FALLBACK DATA (Used if words.json is missing or offline)
+           =================================================================== */
+        const FALLBACK_DATA = {
+            "weeks": [
+                {
+                    "id": "week1",
+                    "title": "Week 1: Core Vocabulary",
+                    "words": [
+                        { "word": "believe", "sentence": "I believe you can do great things!", "hint": "Trust that something is true" },
+                        { "word": "careful", "sentence": "Be careful when walking on slippery ice.", "hint": "Taking caution" },
+                        { "word": "decision", "sentence": "Making a good decision takes careful thought.", "hint": "A choice made after thinking" },
+                        { "word": "experiment", "sentence": "We did a fun science experiment today.", "hint": "A test to discover something" },
+                        { "word": "frequent", "sentence": "She made frequent trips to the local library.", "hint": "Happening often" },
+                        { "word": "gather", "sentence": "Let's gather all the fallen leaves in the yard.", "hint": "Bring together into one group" },
+                        { "word": "history", "sentence": "We learned about ancient history in social studies.", "hint": "The study of past events" },
+                        { "word": "important", "sentence": "Eating healthy food is very important.", "hint": "Of great significance" },
+                        { "word": "journey", "sentence": "The long journey across the ocean took weeks.", "hint": "An act of traveling" },
+                        { "word": "knowledge", "sentence": "Reading books increases your knowledge.", "hint": "Information and understanding" }
+                    ]
+                },
+                {
+                    "id": "week2",
+                    "title": "Week 2: Science & Nature",
+                    "words": [
+                        { "word": "climate", "sentence": "The rainforest has a warm and humid climate.", "hint": "Weather conditions over time" },
+                        { "word": "dinosaur", "sentence": "A fossil of a ancient dinosaur was found.", "hint": "Prehistoric reptile" },
+                        { "word": "ecosystem", "sentence": "All living things in a forest share an ecosystem.", "hint": "Community of living organisms" },
+                        { "word": "gravity", "sentence": "Gravity keeps our feet on the ground.", "hint": "Force attracting objects downward" },
+                        { "word": "habitat", "sentence": "A desert is the natural habitat of a cactus.", "hint": "Natural home of an organism" }
+                    ]
+                }
+            ]
+        };
+
+        /* ===================================================================
+           2. WEB AUDIO SYNTHESIZER (No external audio files required)
+           =================================================================== */
+        const SoundFX = {
+            ctx: null,
+            init() {
+                if (!this.ctx) {
+                    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+                    if (AudioCtx) this.ctx = new AudioCtx();
+                }
+            },
+            playCorrect() {
+                this.init();
+                if (!this.ctx) return;
+                const now = this.ctx.currentTime;
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+                
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(523.25, now); // C5
+                osc.frequency.exponentialRampToValueAtTime(659.25, now + 0.1); // E5
+                osc.frequency.exponentialRampToValueAtTime(783.99, now + 0.2); // G5
+                
+                gain.gain.setValueAtTime(0.25, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.4);
+                
+                osc.connect(gain);
+                gain.connect(this.ctx.destination);
+                osc.start(now);
+                osc.stop(now + 0.4);
+            },
+            playWrong() {
+                this.init();
+                if (!this.ctx) return;
+                const now = this.ctx.currentTime;
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+                
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(180, now);
+                osc.frequency.linearRampToValueAtTime(110, now + 0.2);
+                
+                gain.gain.setValueAtTime(0.2, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
+                
+                osc.connect(gain);
+                gain.connect(this.ctx.destination);
+                osc.start(now);
+                osc.stop(now + 0.25);
+            },
+            playVictory() {
+                this.init();
+                if (!this.ctx) return;
+                const notes = [523.25, 659.25, 783.99, 1046.50];
+                notes.forEach((freq, idx) => {
+                    const now = this.ctx.currentTime + (idx * 0.12);
+                    const osc = this.ctx.createOscillator();
+                    const gain = this.ctx.createGain();
+                    
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(freq, now);
+                    
+                    gain.gain.setValueAtTime(0.25, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
+                    
+                    osc.connect(gain);
+                    gain.connect(this.ctx.destination);
+                    osc.start(now);
+                    osc.stop(now + 0.3);
+                });
+            }
+        };
+
+        /* ===================================================================
+           3. WEB SPEECH API (Voice pronouncer & sentences)
+           =================================================================== */
+        function speakText(text, rate = 0.85) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel(); // Stop active speech
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.rate = rate;
+                utterance.pitch = 1.05; // Slightly cheerful pitch
+                utterance.lang = 'en-US';
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        /* ===================================================================
+           4. GAME STATE VARIABLES
+           =================================================================== */
+        let weekData = [];
+        let currentWeek = null;
+        let currentWordIndex = 0;
+        let score = 0;
+        let streak = 0;
+        let maxStreak = 0;
+        let currentMode = 'test'; // 'test', 'scramble', 'flashcard'
+        let selectedScrambleLetters = [];
+        let flashcardFlipped = false;
+
+        /* ===================================================================
+           5. DATA LOADING & INITIALIZATION
+           =================================================================== */
+        async function loadWordData() {
+            const statusBanner = document.getElementById('status-banner');
+            try {
+                // Fetch words.json relative to deployment root
+                const response = await fetch('./words.json');
+                if (!response.ok) throw new Error(`HTTP error ${response.status}`);
+                
+                const json = await response.json();
+                if (!json.weeks || !Array.isArray(json.weeks)) throw new Error("Invalid JSON format");
+                
+                weekData = json.weeks;
+                statusBanner.innerHTML = `<i class="fa-solid fa-circle-check text-green-500"></i> Loaded from words.json`;
+                statusBanner.className = "text-xs text-green-700 font-semibold bg-green-50 py-1.5 px-3 rounded-full border border-green-200 inline-block shadow-sm";
+            } catch (err) {
+                console.warn("Could not fetch words.json, utilizing built-in fallback dataset:", err);
+                weekData = FALLBACK_DATA.weeks;
+                statusBanner.innerHTML = `<i class="fa-solid fa-triangle-exclamation text-amber-500"></i> Using Default Word List (words.json fallback)`;
+                statusBanner.className = "text-xs text-amber-800 font-semibold bg-amber-50 py-1.5 px-3 rounded-full border border-amber-200 inline-block shadow-sm";
+            }
+
+            populateWeekDropdown();
+        }
+
+        function populateWeekDropdown() {
+            const selectEl = document.getElementById('week-select');
+            selectEl.innerHTML = '';
+            
+            weekData.forEach(week => {
+                const opt = document.createElement('option');
+                opt.value = week.id;
+                opt.textContent = week.title || week.id;
+                selectEl.appendChild(opt);
+            });
+
+            if (weekData.length > 0) {
+                switchWeek(weekData[0].id);
+            }
+        }
+
+        function switchWeek(weekId) {
+            currentWeek = weekData.find(w => w.id === weekId) || weekData[0];
+            restartWeekSession();
+        }
+
+        function restartWeekSession() {
+            currentWordIndex = 0;
+            score = 0;
+            streak = 0;
+            maxStreak = 0;
+            document.getElementById('view-complete').classList.add('hidden');
+            document.getElementById('stats-bar').classList.remove('hidden');
+            switchMode(currentMode);
+        }
+
+        /* ===================================================================
+           6. NAVIGATION & MODE SWITCHING
+           =================================================================== */
+        function switchMode(mode) {
+            currentMode = mode;
+            
+            // Highlight Tab Buttons
+            ['test', 'scramble', 'flashcard'].forEach(m => {
+                const btn = document.getElementById(`tab-${m}`);
+                if (m === mode) {
+                    btn.className = "flex-1 py-2 px-3 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-1.5 transition-all bg-white text-purple-600 shadow-sm";
+                } else {
+                    btn.className = "flex-1 py-2 px-3 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-1.5 transition-all text-gray-600 hover:text-purple-600";
+                }
+            });
+
+            // Toggle View Containers
+            document.getElementById('view-test').classList.add('hidden');
+            document.getElementById('view-scramble').classList.add('hidden');
+            document.getElementById('view-flashcard').classList.add('hidden');
+            document.getElementById('view-complete').classList.add('hidden');
+
+            if (currentWordIndex >= currentWeek.words.length) {
+                showCompletionScreen();
+                return;
+            }
+
+            document.getElementById('stats-bar').classList.remove('hidden');
+
+            if (mode === 'test') {
+                document.getElementById('view-test').classList.remove('hidden');
+                document.getElementById('view-test').classList.add('flex');
+                setupTestMode();
+            } else if (mode === 'scramble') {
+                document.getElementById('view-scramble').classList.remove('hidden');
+                document.getElementById('view-scramble').classList.add('flex');
+                setupScrambleMode();
+            } else if (mode === 'flashcard') {
+                document.getElementById('view-flashcard').classList.remove('hidden');
+                document.getElementById('view-flashcard').classList.add('flex');
+                setupFlashcardMode();
+            }
+
+            updateDashboardUI();
+        }
+
+        function updateDashboardUI() {
+            const total = currentWeek ? currentWeek.words.length : 0;
+            document.getElementById('progress-text').innerText = `Word ${currentWordIndex + 1} of ${total}`;
+            document.getElementById('score-text').innerHTML = `<i class="fa-solid fa-star"></i> ${score}`;
+            document.getElementById('streak-text').innerHTML = `<i class="fa-solid fa-fire"></i> ${streak}`;
+            
+            const pct = total > 0 ? (currentWordIndex / total) * 100 : 0;
+            document.getElementById('progress-bar').style.width = `${pct}%`;
+        }
+
+        function getCurrentWordObj() {
+            return currentWeek ? currentWeek.words[currentWordIndex] : null;
+        }
+
+        function playTargetWord(slow = false) {
+            const wObj = getCurrentWordObj();
+            if (wObj) speakText(wObj.word, slow ? 0.55 : 0.85);
+        }
+
+        function speakSentence() {
+            const wObj = getCurrentWordObj();
+            if (wObj && wObj.sentence) speakText(wObj.sentence, 0.85);
+        }
+
+        /* ===================================================================
+           7. MODE 1: SPELLING TEST LOGIC
+           =================================================================== */
+        function setupTestMode() {
+            const input = document.getElementById('test-input');
+            input.value = '';
+            input.className = "w-full text-center text-2xl sm:text-3xl font-extrabold py-3.5 px-4 rounded-2xl border-4 border-gray-200 focus:outline-none focus:border-purple-400 text-gray-800 transition-all shadow-inner uppercase tracking-wider";
+            document.getElementById('test-feedback-icon').classList.add('hidden');
+            document.getElementById('test-hint-text').classList.add('hidden');
+            
+            // Auto focus on desktop
+            if (window.innerWidth > 768) {
+                setTimeout(() => input.focus(), 100);
+            }
+        }
+
+        function toggleHint() {
+            const wObj = getCurrentWordObj();
+            const hintEl = document.getElementById('test-hint-text');
+            if (wObj && wObj.hint) {
+                hintEl.innerText = `💡 Hint: ${wObj.hint}`;
+                hintEl.classList.toggle('hidden');
+                if (!hintEl.classList.contains('hidden')) {
+                    speakText(`Hint: ${wObj.hint}`);
+                }
+            }
+        }
+
+        function checkSpelling(event) {
+            if (event) event.preventDefault();
+            const input = document.getElementById('test-input');
+            const userVal = input.value.trim().toLowerCase();
+            const targetWord = getCurrentWordObj().word.toLowerCase();
+
+            if (!userVal) return;
+
+            if (userVal === targetWord) {
+                // Correct
+                SoundFX.playCorrect();
+                score++;
+                streak++;
+                if (streak > maxStreak) maxStreak = streak;
+
+                input.className = "w-full text-center text-2xl sm:text-3xl font-extrabold py-3.5 px-4 rounded-2xl border-4 border-green-500 bg-green-50 text-green-800 transition-all shadow-inner uppercase tracking-wider pulse-success";
+                
+                confetti({ particleCount: 60, spread: 60, origin: { y: 0.7 } });
+
+                setTimeout(() => {
+                    advanceWord();
+                }, 1200);
+            } else {
+                // Wrong
+                SoundFX.playWrong();
+                streak = 0;
+                input.classList.remove('shake');
+                void input.offsetWidth; // trigger layout reflow
+                input.className = "w-full text-center text-2xl sm:text-3xl font-extrabold py-3.5 px-4 rounded-2xl border-4 border-red-400 bg-red-50 text-red-800 transition-all shadow-inner uppercase tracking-wider shake";
+                
+                setTimeout(() => {
+                    input.value = '';
+                    updateDashboardUI();
+                }, 800);
+            }
+
+            updateDashboardUI();
+        }
+
+        /* ===================================================================
+           8. MODE 2: WORD SCRAMBLE LOGIC
+           =================================================================== */
+        function setupScrambleMode() {
+            const wObj = getCurrentWordObj();
+            if (!wObj) return;
+
+            selectedScrambleLetters = [];
+            const originalLetters = wObj.word.toUpperCase().split('');
+            
+            // Shuffle letters
+            let shuffled = [...originalLetters];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            // Ensure shuffled order isn't identical to target if length > 2
+            if (shuffled.join('') === wObj.word.toUpperCase() && shuffled.length > 2) {
+                [shuffled[0], shuffled[1]] = [shuffled[1], shuffled[0]];
+            }
+
+            renderScrambleUI(shuffled);
+        }
+
+        function renderScrambleUI(poolLetters) {
+            const slotsContainer = document.getElementById('scramble-answer-slots');
+            const poolContainer = document.getElementById('scramble-letters-pool');
+            
+            slotsContainer.innerHTML = '';
+            poolContainer.innerHTML = '';
+
+            const targetLength = getCurrentWordObj().word.length;
+
+            // Render Answer Slots
+            for (let i = 0; i < targetLength; i++) {
+                const letter = selectedScrambleLetters[i];
+                const slot = document.createElement('div');
+                slot.className = "w-11 h-12 sm:w-12 sm:h-14 border-b-4 border-indigo-400 bg-indigo-50/50 rounded-xl flex items-center justify-center font-black text-2xl text-indigo-900 shadow-sm transition-all";
+                if (letter) {
+                    slot.innerText = letter;
+                    slot.onclick = () => removeScrambleLetter(i);
+                    slot.classList.add('cursor-pointer', 'bg-indigo-100');
+                }
+                slotsContainer.appendChild(slot);
+            }
+
+            // Render Letter Pool
+            poolLetters.forEach((char, idx) => {
+                const tile = document.createElement('button');
+                tile.className = "btn-bounce w-11 h-12 sm:w-12 sm:h-14 bg-white border-2 border-slate-200 hover:border-indigo-400 rounded-2xl font-black text-xl text-slate-700 shadow-md flex items-center justify-center transition-all";
+                tile.innerText = char;
+                tile.onclick = () => selectScrambleLetter(char, poolLetters, idx);
+                poolContainer.appendChild(tile);
+            });
+        }
+
+        function selectScrambleLetter(char, currentPool, removeIdx) {
+            if (selectedScrambleLetters.length < getCurrentWordObj().word.length) {
+                selectedScrambleLetters.push(char);
+                const newPool = currentPool.filter((_, i) => i !== removeIdx);
+                renderScrambleUI(newPool);
+            }
+        }
+
+        function removeScrambleLetter(index) {
+            const removed = selectedScrambleLetters.splice(index, 1)[0];
+            const wObj = getCurrentWordObj();
+            const originalLetters = wObj.word.toUpperCase().split('');
+            
+            // Reconstruct pool from remaining letters
+            let currentLetters = [...selectedScrambleLetters];
+            let remainingPool = [];
+            for (let char of originalLetters) {
+                const foundIdx = currentLetters.indexOf(char);
+                if (foundIdx > -1) {
+                    currentLetters.splice(foundIdx, 1);
+                } else {
+                    remainingPool.push(char);
+                }
+            }
+            renderScrambleUI(remainingPool);
+        }
+
+        function resetScrambleTiles() {
+            selectedScrambleLetters = [];
+            setupScrambleMode();
+        }
+
+        function checkScrambleAnswer() {
+            const userAns = selectedScrambleLetters.join('').toLowerCase();
+            const target = getCurrentWordObj().word.toLowerCase();
+
+            if (userAns.length < target.length) return;
+
+            if (userAns === target) {
+                SoundFX.playCorrect();
+                score++;
+                streak++;
+                if (streak > maxStreak) maxStreak = streak;
+                confetti({ particleCount: 50, spread: 50, origin: { y: 0.7 } });
+                setTimeout(() => advanceWord(), 1000);
+            } else {
+                SoundFX.playWrong();
+                streak = 0;
+                resetScrambleTiles();
+            }
+            updateDashboardUI();
+        }
+
+        /* ===================================================================
+           9. MODE 3: FLASHCARDS LOGIC
+           =================================================================== */
+        function setupFlashcardMode() {
+            const wObj = getCurrentWordObj();
+            if (!wObj) return;
+
+            flashcardFlipped = false;
+            document.getElementById('flashcard-inner').classList.remove('rotate-y-180');
+            
+            document.getElementById('card-front-word').innerText = wObj.word.toUpperCase();
+            document.getElementById('card-back-hint').innerText = wObj.hint || "Grade 4 Practice Word";
+            document.getElementById('card-back-sentence').innerText = wObj.sentence || `"${wObj.word}"`;
+        }
+
+        function flipFlashcard() {
+            flashcardFlipped = !flashcardFlipped;
+            const inner = document.getElementById('flashcard-inner');
+            if (flashcardFlipped) {
+                inner.classList.add('rotate-y-180');
+            } else {
+                inner.classList.remove('rotate-y-180');
+            }
+        }
+
+        function navFlashcard(delta) {
+            const total = currentWeek.words.length;
+            currentWordIndex = (currentWordIndex + delta + total) % total;
+            setupFlashcardMode();
+            updateDashboardUI();
+        }
+
+        /* ===================================================================
+           10. PROGRESSION & COMPLETION
+           =================================================================== */
+        function advanceWord() {
+            currentWordIndex++;
+            if (currentWordIndex < currentWeek.words.length) {
+                switchMode(currentMode);
+            } else {
+                showCompletionScreen();
+            }
+        }
+
+        function showCompletionScreen() {
+            document.getElementById('view-test').classList.add('hidden');
+            document.getElementById('view-scramble').classList.add('hidden');
+            document.getElementById('view-flashcard').classList.add('hidden');
+            document.getElementById('stats-bar').classList.add('hidden');
+            
+            document.getElementById('view-complete').classList.remove('hidden');
+            document.getElementById('view-complete').classList.add('flex');
+
+            const total = currentWeek.words.length;
+            document.getElementById('final-score').innerText = `${score}/${total}`;
+            document.getElementById('final-streak').innerText = `${maxStreak}`;
+
+            SoundFX.playVictory();
+
+            // Fireworks confetti animation
+            const duration = 2500;
+            const end = Date.now() + duration;
+
+            (function frame() {
+                confetti({ particleCount: 4, angle: 60, spread: 55, origin: { x: 0 } });
+                confetti({ particleCount: 4, angle: 120, spread: 55, origin: { x: 1 } });
+                if (Date.now() < end) requestAnimationFrame(frame);
+            }());
+        }
+
+        // Start app when DOM is ready
+        window.addEventListener('DOMContentLoaded', loadWordData);
+    </script>
+</body>
+</html>
