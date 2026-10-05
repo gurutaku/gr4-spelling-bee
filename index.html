@@ -447,7 +447,7 @@
             const statusBanner = document.getElementById('status-banner');
             try {
                 // Fetch words.json relative to deployment root
-                const response = await fetch('./words.json');
+                const words = require('./words.json');
                 if (!response.ok) throw new Error(`HTTP error ${response.status}`);
                 
                 const json = await response.json();
