@@ -1,0 +1,31 @@
+{
+  "Week 1": [
+    {
+      "word": "ancient",
+      "hint": "Belonging to the distant past",
+      "sentence": "The museum had an ancient Greek vase."
+    },
+    {
+      "word": "curious",
+      "hint": "Eager to learn or know something",
+      "sentence": "The curious puppy explored the entire garden."
+    },
+    {
+      "word": "dinosaur",
+      "hint": "A fossil reptile of the Mesozoic era",
+      "sentence": "We saw a huge dinosaur skeleton at the museum."
+    }
+  ],
+  "Week 2": [
+    {
+      "word": "furious",
+      "hint": "Extremely angry",
+      "sentence": "He was furious when he dropped his ice cream."
+    },
+    {
+      "word": "explore",
+      "hint": "Travel in or through an unfamiliar area to learn about it",
+      "sentence": "They plan to explore the hiking trail this weekend."
+    }
+  ]
+}
