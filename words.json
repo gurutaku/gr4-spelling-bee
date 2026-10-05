@@ -1,31 +1,91 @@
 {
-  "Week 1": [
-    {
-      "word": "ancient",
-      "hint": "Belonging to the distant past",
-      "sentence": "The museum had an ancient Greek vase."
-    },
-    {
-      "word": "curious",
-      "hint": "Eager to learn or know something",
-      "sentence": "The curious puppy explored the entire garden."
-    },
-    {
-      "word": "dinosaur",
-      "hint": "A fossil reptile of the Mesozoic era",
-      "sentence": "We saw a huge dinosaur skeleton at the museum."
-    }
-  ],
-  "Week 2": [
-    {
-      "word": "furious",
-      "hint": "Extremely angry",
-      "sentence": "He was furious when he dropped his ice cream."
-    },
-    {
-      "word": "explore",
-      "hint": "Travel in or through an unfamiliar area to learn about it",
-      "sentence": "They plan to explore the hiking trail this weekend."
-    }
-  ]
+	"weeks": [
+		{
+			"id": "week1",
+			"title": "Week 1",
+			"words": [
+				{
+					"word": "careful",
+					"sentence": "Be careful when walking on slippery ice.",
+					"hint": "Taking caution"
+				},
+				{
+					"word": "believe",
+					"sentence": "I believe you can do great things!",
+					"hint": "Trust that something is true"
+				},
+				{
+					"word": "decision",
+					"sentence": "Making a good decision takes careful thought.",
+					"hint": "A choice made after thinking"
+				},
+				{
+					"word": "experiment",
+					"sentence": "We did a fun science experiment today.",
+					"hint": "A test to discover something"
+				},
+				{
+					"word": "frequent",
+					"sentence": "She made frequent trips to the local library.",
+					"hint": "Happening often"
+				},
+				{
+					"word": "gather",
+					"sentence": "Let's gather all the fallen leaves in the yard.",
+					"hint": "Bring together into one group"
+				},
+				{
+					"word": "history",
+					"sentence": "We learned about ancient history in social studies.",
+					"hint": "The study of past events"
+				},
+				{
+					"word": "important",
+					"sentence": "Eating healthy food is very important.",
+					"hint": "Of great significance"
+				},
+				{
+					"word": "journey",
+					"sentence": "The long journey across the ocean took weeks.",
+					"hint": "An act of traveling"
+				},
+				{
+					"word": "knowledge",
+					"sentence": "Reading books increases your knowledge.",
+					"hint": "Information and understanding"
+				}
+			]
+		},
+		{
+			"id": "week2",
+			"title": "Week 2",
+			"words": [
+				{
+					"word": "climate",
+					"sentence": "The rainforest has a warm and humid climate.",
+					"hint": "Weather conditions over time"
+				},
+				{
+					"word": "dinosaur",
+					"sentence": "A fossil of a ancient dinosaur was found.",
+					"hint": "Prehistoric reptile"
+				},
+				{
+					"word": "ecosystem",
+					"sentence": "All living things in a forest share an ecosystem.",
+					"hint": "Community of living organisms"
+				},
+				{
+					"word": "gravity",
+					"sentence": "Gravity keeps our feet on the ground.",
+					"hint": "Force attracting objects downward"
+				},
+				{
+					"word": "habitat",
+					"sentence": "A desert is the natural habitat of a cactus.",
+					"hint": "Natural home of an organism"
+				}
+			]
+		}
+	]
 }
