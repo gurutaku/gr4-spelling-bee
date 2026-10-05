@@ -447,10 +447,10 @@
             const statusBanner = document.getElementById('status-banner');
             try {
                 // Fetch words.json relative to deployment root
-                const words = require('./words.json');
-                if (!response.ok) throw new Error(`HTTP error ${response.status}`);
+                const json = require('./words.json');
+                //if (!response.ok) throw new Error(`HTTP error ${response.status}`);
                 
-                const json = await response.json();
+                //const json = await response.json();
                 if (!json.weeks || !Array.isArray(json.weeks)) throw new Error("Invalid JSON format");
                 
                 weekData = json.weeks;
