@@ -1,27 +1,95 @@
 {
 	"weeks": [
 		{
-		  "id": "week1",
-		  "title": "Week 1",
-		  "words": [
-		    { "word": "mask", "sentence": "He wore a superhero mask to the costume party.", "hint": "A covering worn over the face" },
-		    { "word": "track", "sentence": "The train runs along the metal track.", "hint": "A path or rail for vehicles" },
-		    { "word": "stamp", "sentence": "Don't forget to put a stamp on the envelope before mailing it.", "hint": "A small sticker used for postage" },
-		    { "word": "stage", "sentence": "The actors walked out onto the stage to perform.", "hint": "A raised platform for performances" },
-		    { "word": "grade", "sentence": "She was happy to receive a high grade on her spelling test.", "hint": "A mark indicating quality or achievement" },
-		    { "word": "chance", "sentence": "Everyone deserves a second chance to try again.", "hint": "A possibility or opportunity" },
-		    { "word": "they", "sentence": "They went to the park together after school.", "hint": "Refers to two or more people" },
-		    { "word": "batch", "sentence": "Grandma baked a fresh batch of chocolate chip cookies.", "hint": "A quantity produced at one time" },
-		    { "word": "graph", "sentence": "We created a bar graph to display our science survey data.", "hint": "A diagram showing relationships between data" },
-		    { "word": "trade", "sentence": "I will trade my apple for your banana at lunch.", "hint": "To exchange one thing for another" },
-		    { "word": "raise", "sentence": "Please raise your hand if you know the answer.", "hint": "To lift or move upward" },
-		    { "word": "eight", "sentence": "An octopus has eight long arms.", "hint": "The number after seven" },
-		    { "word": "safety", "sentence": "Always wear a helmet for your safety while riding a bike.", "hint": "Protection from danger or risk" },
-		    { "word": "wrapped", "sentence": "She wrapped the birthday present in colorful paper.", "hint": "Covered or enclosed completely" },
-		    { "word": "laugh", "sentence": "The funny joke made everyone in the room laugh.", "hint": "To make sounds showing amusement" },
-		    { "word": "magical", "sentence": "The wizard performed a magical trick that amazed the audience.", "hint": "Having enchanting or supernatural qualities" },
-		    { "word": "station", "sentence": "We waited at the train station for our arrival.", "hint": "A stopping place on a transportation route" }
-		  ]
+			"id": "week1",
+			"title": "Week 1",
+			"words": [
+				{
+					"word": "mask",
+					"sentence": "He wore a superhero mask to the costume party.",
+					"hint": "A covering worn over the face"
+				},
+				{
+					"word": "track",
+					"sentence": "The train runs along the metal track.",
+					"hint": "A path or rail for vehicles"
+				},
+				{
+					"word": "stamp",
+					"sentence": "Don't forget to put a stamp on the envelope before mailing it.",
+					"hint": "A small sticker used for postage"
+				},
+				{
+					"word": "stage",
+					"sentence": "The actors walked out onto the stage to perform.",
+					"hint": "A raised platform for performances"
+				},
+				{
+					"word": "grade",
+					"sentence": "She was happy to receive a high grade on her spelling test.",
+					"hint": "A mark indicating quality or achievement"
+				},
+				{
+					"word": "chance",
+					"sentence": "Everyone deserves a second chance to try again.",
+					"hint": "A possibility or opportunity"
+				},
+				{
+					"word": "they",
+					"sentence": "They went to the park together after school.",
+					"hint": "Refers to two or more people"
+				},
+				{
+					"word": "batch",
+					"sentence": "Grandma baked a fresh batch of chocolate chip cookies.",
+					"hint": "A quantity produced at one time"
+				},
+				{
+					"word": "graph",
+					"sentence": "We created a bar graph to display our science survey data.",
+					"hint": "A diagram showing relationships between data"
+				},
+				{
+					"word": "trade",
+					"sentence": "I will trade my apple for your banana at lunch.",
+					"hint": "To exchange one thing for another"
+				},
+				{
+					"word": "raise",
+					"sentence": "Please raise your hand if you know the answer.",
+					"hint": "To lift or move upward"
+				},
+				{
+					"word": "eight",
+					"sentence": "An octopus has eight long arms.",
+					"hint": "The number after seven"
+				},
+				{
+					"word": "safety",
+					"sentence": "Always wear a helmet for your safety while riding a bike.",
+					"hint": "Protection from danger or risk"
+				},
+				{
+					"word": "wrapped",
+					"sentence": "She wrapped the birthday present in colorful paper.",
+					"hint": "Covered or enclosed completely"
+				},
+				{
+					"word": "laugh",
+					"sentence": "The funny joke made everyone in the room laugh.",
+					"hint": "To make sounds showing amusement"
+				},
+				{
+					"word": "magical",
+					"sentence": "The wizard performed a magical trick that amazed the audience.",
+					"hint": "Having enchanting or supernatural qualities"
+				},
+				{
+					"word": "station",
+					"sentence": "We waited at the train station for our arrival.",
+					"hint": "A stopping place on a transportation route"
+				}
+			]
 		}
 	]
 }

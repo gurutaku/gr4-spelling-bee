@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-ERPMF4T7YG"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-    
-      gtag('config', 'G-ERPMF4T7YG');
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-ERPMF4T7YG');
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Grade 4 Weekly Spelling Game</title>
-    
+
     <!-- 
       ===================================================================
       GITHUB PAGES DEPLOYMENT INSTRUCTIONS:
@@ -39,7 +40,9 @@
     <!-- Tailwind CSS for utility styling -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts for kid-friendly typography -->
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800&display=swap"
+        rel="stylesheet">
     <!-- FontAwesome for iconography -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Canvas Confetti for victory celebrations -->
@@ -47,8 +50,10 @@
 
     <style>
         * {
-            touch-action: manipulation; /* Improves touch responsiveness on iOS/Android */
+            touch-action: manipulation;
+            /* Improves touch responsiveness on iOS/Android */
         }
+
         body {
             font-family: 'Fredoka', 'Nunito', sans-serif;
             background: linear-gradient(135deg, #e0f2fe 0%, #fbcfe8 50%, #fef3c7 100%);
@@ -59,22 +64,38 @@
         .perspective-1000 {
             perspective: 1000px;
         }
+
         .transform-style-3d {
             transform-style: preserve-3d;
         }
+
         .backface-hidden {
             backface-visibility: hidden;
         }
+
         .rotate-y-180 {
             transform: rotateY(180deg);
         }
 
         /* Shake animation for error feedback */
         @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            20%, 60% { transform: translateX(-12px); }
-            40%, 80% { transform: translateX(12px); }
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            20%,
+            60% {
+                transform: translateX(-12px);
+            }
+
+            40%,
+            80% {
+                transform: translateX(12px);
+            }
         }
+
         .shake {
             animation: shake 0.4s ease-in-out;
             border-color: #ef4444 !important;
@@ -83,10 +104,19 @@
 
         /* Pulse animation for correct answers */
         @keyframes pulse-success {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.03); }
-            100% { transform: scale(1); }
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.03);
+            }
+
+            100% {
+                transform: scale(1);
+            }
         }
+
         .pulse-success {
             animation: pulse-success 0.4s ease-in-out;
             border-color: #22c55e !important;
@@ -97,19 +127,23 @@
         .btn-bounce {
             transition: transform 0.1s ease, box-shadow 0.1s ease;
         }
+
         .btn-bounce:active {
             transform: scale(0.94);
         }
     </style>
 </head>
+
 <body class="flex flex-col items-center justify-between p-3 sm:p-6 min-h-screen">
 
     <div class="w-full max-w-2xl mx-auto flex-grow flex flex-col justify-between">
-        
+
         <!-- Header & Week Dropdown -->
-        <header class="w-full bg-white/80 backdrop-blur-md rounded-2xl p-4 mb-4 shadow-md border border-white/60 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <header
+            class="w-full bg-white/80 backdrop-blur-md rounded-2xl p-4 mb-4 shadow-md border border-white/60 flex flex-col sm:flex-row items-center justify-between gap-3">
             <div class="flex items-center gap-3">
-                <div class="bg-amber-400 text-white w-12 h-12 rounded-2xl flex items-center justify-center text-2xl shadow-sm">
+                <div
+                    class="bg-amber-400 text-white w-12 h-12 rounded-2xl flex items-center justify-center text-2xl shadow-sm">
                     <i class="fa-solid fa-bee"></i>
                 </div>
                 <div>
@@ -120,7 +154,8 @@
 
             <!-- Dynamic Week Selector -->
             <div class="w-full sm:w-auto">
-                <select id="week-select" onchange="switchWeek(this.value)" class="w-full sm:w-auto bg-amber-50 border-2 border-amber-300 text-gray-800 text-sm font-bold rounded-xl px-3 py-2 focus:outline-none focus:border-amber-500 cursor-pointer shadow-sm">
+                <select id="week-select" onchange="switchWeek(this.value)"
+                    class="w-full sm:w-auto bg-amber-50 border-2 border-amber-300 text-gray-800 text-sm font-bold rounded-xl px-3 py-2 focus:outline-none focus:border-amber-500 cursor-pointer shadow-sm">
                     <option value="">Loading lists...</option>
                 </select>
             </div>
@@ -128,87 +163,101 @@
 
         <!-- Mode Navigation Tabs -->
         <div class="flex justify-center gap-2 mb-4 bg-white/60 p-1.5 rounded-2xl border border-white/40 shadow-inner">
-            <button id="tab-test" onclick="switchMode('test')" class="flex-1 py-2 px-3 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-1.5 transition-all bg-white text-purple-600 shadow-sm">
+            <button id="tab-test" onclick="switchMode('test')"
+                class="flex-1 py-2 px-3 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-1.5 transition-all bg-white text-purple-600 shadow-sm">
                 <i class="fa-solid fa-pen-to-square text-base"></i>
                 <span>Test</span>
             </button>
-            <button id="tab-scramble" onclick="switchMode('scramble')" class="flex-1 py-2 px-3 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-1.5 transition-all text-gray-600 hover:text-purple-600">
+            <button id="tab-scramble" onclick="switchMode('scramble')"
+                class="flex-1 py-2 px-3 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-1.5 transition-all text-gray-600 hover:text-purple-600">
                 <i class="fa-solid fa-cubes text-base"></i>
                 <span>Scramble</span>
             </button>
-            <button id="tab-flashcard" onclick="switchMode('flashcard')" class="flex-1 py-2 px-3 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-1.5 transition-all text-gray-600 hover:text-purple-600">
+            <button id="tab-flashcard" onclick="switchMode('flashcard')"
+                class="flex-1 py-2 px-3 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-1.5 transition-all text-gray-600 hover:text-purple-600">
                 <i class="fa-solid fa-cards-blank text-base"></i>
                 <span>Flashcards</span>
             </button>
         </div>
 
         <!-- Main Game Card -->
-        <main class="bg-white rounded-3xl shadow-xl p-5 sm:p-8 relative border-4 border-white/80 flex-grow flex flex-col justify-between mb-4">
-            
+        <main
+            class="bg-white rounded-3xl shadow-xl p-5 sm:p-8 relative border-4 border-white/80 flex-grow flex flex-col justify-between mb-4">
+
             <!-- Dashboard Stats Bar -->
             <div id="stats-bar" class="mb-6">
                 <div class="flex justify-between items-center text-xs sm:text-sm font-bold text-gray-500 mb-2">
                     <span id="progress-text">Word 1 of 10</span>
                     <div class="flex items-center gap-4">
-                        <span id="streak-text" class="text-orange-500 flex items-center gap-1"><i class="fa-solid fa-fire"></i> 0</span>
-                        <span id="score-text" class="text-green-600 flex items-center gap-1"><i class="fa-solid fa-star"></i> 0</span>
+                        <span id="streak-text" class="text-orange-500 flex items-center gap-1"><i
+                                class="fa-solid fa-fire"></i> 0</span>
+                        <span id="score-text" class="text-green-600 flex items-center gap-1"><i
+                                class="fa-solid fa-star"></i> 0</span>
                     </div>
                 </div>
                 <div class="w-full bg-gray-100 rounded-full h-3 overflow-hidden p-0.5 border border-gray-200">
-                    <div id="progress-bar" class="bg-gradient-to-r from-amber-400 via-purple-500 to-pink-500 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+                    <div id="progress-bar"
+                        class="bg-gradient-to-r from-amber-400 via-purple-500 to-pink-500 h-2 rounded-full transition-all duration-300"
+                        style="width: 0%"></div>
                 </div>
             </div>
 
             <!-- MODE 1: SPELLING TEST VIEW -->
             <div id="view-test" class="flex flex-col items-center justify-center text-center my-auto w-full">
-                <div class="w-full bg-blue-50/80 rounded-2xl p-5 mb-5 border-2 border-blue-100 flex flex-col items-center">
-                    <p class="text-xs sm:text-sm font-bold text-blue-600 uppercase tracking-wider mb-3">Listen & Spell</p>
-                    
+                <div
+                    class="w-full bg-blue-50/80 rounded-2xl p-5 mb-5 border-2 border-blue-100 flex flex-col items-center">
+                    <p class="text-xs sm:text-sm font-bold text-blue-600 uppercase tracking-wider mb-3">Listen & Spell
+                    </p>
+
                     <div class="flex flex-wrap justify-center gap-3 w-full">
-                        <button onclick="playTargetWord()" class="btn-bounce bg-blue-500 hover:bg-blue-600 text-white font-bold py-3.5 px-6 rounded-2xl shadow-lg shadow-blue-500/30 flex items-center justify-center gap-2 text-base sm:text-lg">
+                        <button onclick="playTargetWord()"
+                            class="btn-bounce bg-blue-500 hover:bg-blue-600 text-white font-bold py-3.5 px-6 rounded-2xl shadow-lg shadow-blue-500/30 flex items-center justify-center gap-2 text-base sm:text-lg">
                             <i class="fa-solid fa-volume-high text-xl"></i> Hear Word
                         </button>
-                        <button onclick="playTargetWord(true)" class="btn-bounce bg-blue-100 hover:bg-blue-200 text-blue-700 font-bold py-3.5 px-4 rounded-2xl text-sm flex items-center justify-center gap-1">
+                        <button onclick="playTargetWord(true)"
+                            class="btn-bounce bg-blue-100 hover:bg-blue-200 text-blue-700 font-bold py-3.5 px-4 rounded-2xl text-sm flex items-center justify-center gap-1">
                             <i class="fa-solid fa-turtle text-lg"></i> Slow
                         </button>
                     </div>
 
                     <div class="flex flex-wrap justify-center gap-2 mt-4 text-xs font-semibold">
-                        <button onclick="speakSentence()" class="bg-white hover:bg-blue-100 text-blue-700 border border-blue-200 px-3 py-1.5 rounded-xl shadow-sm flex items-center gap-1.5">
+                        <button onclick="speakSentence()"
+                            class="bg-white hover:bg-blue-100 text-blue-700 border border-blue-200 px-3 py-1.5 rounded-xl shadow-sm flex items-center gap-1.5">
                             <i class="fa-solid fa-comment-dots text-blue-500"></i> Read Sentence
                         </button>
-                        <button onclick="toggleHint()" class="bg-white hover:bg-amber-100 text-amber-700 border border-amber-200 px-3 py-1.5 rounded-xl shadow-sm flex items-center gap-1.5">
+                        <button onclick="toggleHint()"
+                            class="bg-white hover:bg-amber-100 text-amber-700 border border-amber-200 px-3 py-1.5 rounded-xl shadow-sm flex items-center gap-1.5">
                             <i class="fa-solid fa-lightbulb text-amber-500"></i> Hint
                         </button>
                     </div>
 
-                    <p id="test-hint-text" class="hidden text-xs text-amber-800 bg-amber-50 border border-amber-200 p-2 rounded-xl mt-3 w-full animate-fade-in"></p>
+                    <p id="test-hint-text"
+                        class="hidden text-xs text-amber-800 bg-amber-50 border border-amber-200 p-2 rounded-xl mt-3 w-full animate-fade-in">
+                    </p>
                 </div>
 
                 <form id="spelling-form" onsubmit="checkSpelling(event)" class="w-full relative mb-4">
-                    <input 
-                        type="text" 
-                        id="test-input" 
+                    <input type="text" id="test-input"
                         class="w-full text-center text-2xl sm:text-3xl font-extrabold py-3.5 px-4 rounded-2xl border-4 border-gray-200 focus:outline-none focus:border-purple-400 text-gray-800 transition-all shadow-inner uppercase tracking-wider"
-                        placeholder="TYPE HERE..."
-                        autocomplete="off"
-                        autocorrect="off"
-                        autocapitalize="off"
-                        spellcheck="false"
-                    >
-                    <div id="test-feedback-icon" class="absolute right-4 top-1/2 transform -translate-y-1/2 text-2xl hidden"></div>
+                        placeholder="TYPE HERE..." autocomplete="off" autocorrect="off" autocapitalize="off"
+                        spellcheck="false">
+                    <div id="test-feedback-icon"
+                        class="absolute right-4 top-1/2 transform -translate-y-1/2 text-2xl hidden"></div>
                 </form>
 
-                <button onclick="checkSpelling(event)" class="btn-bounce w-full bg-gradient-to-r from-purple-500 to-indigo-600 hover:from-purple-600 hover:to-indigo-700 text-white font-bold py-4 px-6 rounded-2xl shadow-lg shadow-purple-500/30 text-lg transition-all flex items-center justify-center gap-2">
+                <button onclick="checkSpelling(event)"
+                    class="btn-bounce w-full bg-gradient-to-r from-purple-500 to-indigo-600 hover:from-purple-600 hover:to-indigo-700 text-white font-bold py-4 px-6 rounded-2xl shadow-lg shadow-purple-500/30 text-lg transition-all flex items-center justify-center gap-2">
                     Check Answer <i class="fa-solid fa-circle-check"></i>
                 </button>
             </div>
 
             <!-- MODE 2: WORD SCRAMBLE VIEW -->
             <div id="view-scramble" class="hidden flex-col items-center justify-center text-center my-auto w-full">
-                <p class="text-xs sm:text-sm font-bold text-indigo-600 uppercase tracking-wider mb-2">Unscramble the Letters</p>
-                
-                <button onclick="playTargetWord()" class="btn-bounce text-indigo-600 bg-indigo-50 hover:bg-indigo-100 px-4 py-2 rounded-xl text-sm font-bold mb-4 flex items-center gap-2 border border-indigo-200">
+                <p class="text-xs sm:text-sm font-bold text-indigo-600 uppercase tracking-wider mb-2">Unscramble the
+                    Letters</p>
+
+                <button onclick="playTargetWord()"
+                    class="btn-bounce text-indigo-600 bg-indigo-50 hover:bg-indigo-100 px-4 py-2 rounded-xl text-sm font-bold mb-4 flex items-center gap-2 border border-indigo-200">
                     <i class="fa-solid fa-volume-high"></i> Hear Word
                 </button>
 
@@ -216,13 +265,17 @@
                 <div id="scramble-answer-slots" class="flex flex-wrap justify-center gap-2 mb-6 min-h-[52px]"></div>
 
                 <!-- Available Letter Tiles -->
-                <div id="scramble-letters-pool" class="flex flex-wrap justify-center gap-2 mb-6 bg-slate-50 p-4 rounded-2xl border-2 border-dashed border-slate-200 min-h-[64px] w-full"></div>
+                <div id="scramble-letters-pool"
+                    class="flex flex-wrap justify-center gap-2 mb-6 bg-slate-50 p-4 rounded-2xl border-2 border-dashed border-slate-200 min-h-[64px] w-full">
+                </div>
 
                 <div class="flex gap-3 w-full">
-                    <button onclick="resetScrambleTiles()" class="btn-bounce w-1/3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold py-3 rounded-xl border border-gray-300 text-sm">
+                    <button onclick="resetScrambleTiles()"
+                        class="btn-bounce w-1/3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold py-3 rounded-xl border border-gray-300 text-sm">
                         <i class="fa-solid fa-rotate-left"></i> Reset
                     </button>
-                    <button onclick="checkScrambleAnswer()" class="btn-bounce flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-xl shadow-md shadow-indigo-500/20 text-sm sm:text-base">
+                    <button onclick="checkScrambleAnswer()"
+                        class="btn-bounce flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-xl shadow-md shadow-indigo-500/20 text-sm sm:text-base">
                         Submit Scramble <i class="fa-solid fa-arrow-right ml-1"></i>
                     </button>
                 </div>
@@ -230,34 +283,45 @@
 
             <!-- MODE 3: FLASHCARDS VIEW -->
             <div id="view-flashcard" class="hidden flex-col items-center justify-center my-auto w-full">
-                <p class="text-xs sm:text-sm font-bold text-pink-600 uppercase tracking-wider mb-3 text-center">Tap Card to Flip</p>
-                
+                <p class="text-xs sm:text-sm font-bold text-pink-600 uppercase tracking-wider mb-3 text-center">Tap Card
+                    to Flip</p>
+
                 <!-- 3D Card Container -->
                 <div onclick="flipFlashcard()" class="w-full max-w-sm h-64 perspective-1000 cursor-pointer mx-auto">
-                    <div id="flashcard-inner" class="relative w-full h-full rounded-3xl transition-transform duration-500 transform-style-3d shadow-xl border-4 border-pink-200">
-                        
+                    <div id="flashcard-inner"
+                        class="relative w-full h-full rounded-3xl transition-transform duration-500 transform-style-3d shadow-xl border-4 border-pink-200">
+
                         <!-- Front Face -->
-                        <div class="absolute inset-0 w-full h-full bg-gradient-to-br from-pink-500 to-rose-400 text-white rounded-2xl p-6 flex flex-col items-center justify-center backface-hidden text-center">
-                            <span class="text-xs bg-white/20 px-3 py-1 rounded-full uppercase tracking-widest font-bold mb-4">Target Word</span>
+                        <div
+                            class="absolute inset-0 w-full h-full bg-gradient-to-br from-pink-500 to-rose-400 text-white rounded-2xl p-6 flex flex-col items-center justify-center backface-hidden text-center">
+                            <span
+                                class="text-xs bg-white/20 px-3 py-1 rounded-full uppercase tracking-widest font-bold mb-4">Target
+                                Word</span>
                             <h3 id="card-front-word" class="text-4xl font-extrabold tracking-wide mb-3">...</h3>
-                            <button onclick="event.stopPropagation(); playTargetWord();" class="btn-bounce bg-white text-pink-600 font-bold p-3 rounded-full shadow-md hover:bg-pink-50">
+                            <button onclick="event.stopPropagation(); playTargetWord();"
+                                class="btn-bounce bg-white text-pink-600 font-bold p-3 rounded-full shadow-md hover:bg-pink-50">
                                 <i class="fa-solid fa-volume-high text-xl"></i>
                             </button>
                         </div>
 
                         <!-- Back Face -->
-                        <div class="absolute inset-0 w-full h-full bg-white text-gray-800 rounded-2xl p-6 flex flex-col items-center justify-between backface-hidden rotate-y-180 border-2 border-pink-100 text-center">
+                        <div
+                            class="absolute inset-0 w-full h-full bg-white text-gray-800 rounded-2xl p-6 flex flex-col items-center justify-between backface-hidden rotate-y-180 border-2 border-pink-100 text-center">
                             <div class="w-full">
-                                <span class="text-xs text-pink-500 font-bold uppercase tracking-wider">Context & Meaning</span>
-                                <p id="card-back-hint" class="text-sm font-semibold text-gray-600 mt-2 italic bg-pink-50 p-2 rounded-xl">...</p>
+                                <span class="text-xs text-pink-500 font-bold uppercase tracking-wider">Context &
+                                    Meaning</span>
+                                <p id="card-back-hint"
+                                    class="text-sm font-semibold text-gray-600 mt-2 italic bg-pink-50 p-2 rounded-xl">
+                                    ...</p>
                             </div>
-                            
+
                             <div class="w-full">
                                 <span class="text-xs text-gray-400 font-bold uppercase">Example Sentence</span>
                                 <p id="card-back-sentence" class="text-sm font-bold text-gray-700 mt-1">...</p>
                             </div>
 
-                            <button onclick="event.stopPropagation(); speakSentence();" class="btn-bounce text-xs bg-pink-100 text-pink-700 font-bold px-3 py-1.5 rounded-lg flex items-center gap-1">
+                            <button onclick="event.stopPropagation(); speakSentence();"
+                                class="btn-bounce text-xs bg-pink-100 text-pink-700 font-bold px-3 py-1.5 rounded-lg flex items-center gap-1">
                                 <i class="fa-solid fa-volume-high"></i> Read Sentence
                             </button>
                         </div>
@@ -267,13 +331,16 @@
 
                 <!-- Flashcard Controls -->
                 <div class="flex justify-between items-center w-full max-w-sm mt-6 gap-3">
-                    <button onclick="navFlashcard(-1)" class="btn-bounce bg-white border border-gray-200 text-gray-700 hover:bg-gray-50 font-bold py-2.5 px-4 rounded-xl text-sm shadow-sm flex items-center gap-1">
+                    <button onclick="navFlashcard(-1)"
+                        class="btn-bounce bg-white border border-gray-200 text-gray-700 hover:bg-gray-50 font-bold py-2.5 px-4 rounded-xl text-sm shadow-sm flex items-center gap-1">
                         <i class="fa-solid fa-chevron-left"></i> Prev
                     </button>
-                    <button onclick="playTargetWord()" class="btn-bounce bg-pink-500 text-white hover:bg-pink-600 font-bold py-2.5 px-4 rounded-xl text-sm shadow-md flex items-center gap-1">
+                    <button onclick="playTargetWord()"
+                        class="btn-bounce bg-pink-500 text-white hover:bg-pink-600 font-bold py-2.5 px-4 rounded-xl text-sm shadow-md flex items-center gap-1">
                         <i class="fa-solid fa-volume-high"></i> Listen
                     </button>
-                    <button onclick="navFlashcard(1)" class="btn-bounce bg-white border border-gray-200 text-gray-700 hover:bg-gray-50 font-bold py-2.5 px-4 rounded-xl text-sm shadow-sm flex items-center gap-1">
+                    <button onclick="navFlashcard(1)"
+                        class="btn-bounce bg-white border border-gray-200 text-gray-700 hover:bg-gray-50 font-bold py-2.5 px-4 rounded-xl text-sm shadow-sm flex items-center gap-1">
                         Next <i class="fa-solid fa-chevron-right"></i>
                     </button>
                 </div>
@@ -285,7 +352,8 @@
                 <h2 class="text-3xl font-extrabold text-gray-800 mb-1">Awesome Job!</h2>
                 <p class="text-sm text-gray-500 font-semibold mb-6">You've leveled up!</p>
 
-                <div class="bg-amber-50 border-2 border-amber-200 rounded-2xl p-4 w-full mb-6 flex justify-around items-center">
+                <div
+                    class="bg-amber-50 border-2 border-amber-200 rounded-2xl p-4 w-full mb-6 flex justify-around items-center">
                     <div>
                         <p class="text-xs text-amber-700 font-bold uppercase">Accuracy</p>
                         <p id="final-score" class="text-2xl font-black text-amber-600">0/0</p>
@@ -297,7 +365,8 @@
                     </div>
                 </div>
 
-                <button onclick="restartWeekSession()" class="btn-bounce w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold py-4 px-6 rounded-2xl shadow-lg shadow-green-500/30 text-lg flex items-center justify-center gap-2">
+                <button onclick="restartWeekSession()"
+                    class="btn-bounce w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold py-4 px-6 rounded-2xl shadow-lg shadow-green-500/30 text-lg flex items-center justify-center gap-2">
                     <i class="fa-solid fa-rotate-right"></i> Play Again
                 </button>
             </div>
@@ -306,7 +375,8 @@
 
         <!-- Footer / Data Load Status Banner -->
         <footer class="w-full text-center">
-            <div id="status-banner" class="text-xs text-slate-500 font-semibold bg-white/40 backdrop-blur-sm py-1.5 px-3 rounded-full border border-white/50 inline-block shadow-sm">
+            <div id="status-banner"
+                class="text-xs text-slate-500 font-semibold bg-white/40 backdrop-blur-sm py-1.5 px-3 rounded-full border border-white/50 inline-block shadow-sm">
                 <i class="fa-solid fa-spinner fa-spin mr-1 text-amber-500"></i> Connecting to ...
             </div>
         </footer>
@@ -320,27 +390,27 @@
         const FALLBACK_DATA = {
             "weeks": [
                 {
-                  "id": "week1",
-                  "title": "Week 1",
-                  "words": [
-                    { "word": "mask", "sentence": "He wore a superhero mask to the costume party.", "hint": "A covering worn over the face" },
-                    { "word": "track", "sentence": "The train runs along the metal track.", "hint": "A path or rail for vehicles" },
-                    { "word": "stamp", "sentence": "Don't forget to put a stamp on the envelope before mailing it.", "hint": "A small sticker used for postage" },
-                    { "word": "stage", "sentence": "The actors walked out onto the stage to perform.", "hint": "A raised platform for performances" },
-                    { "word": "grade", "sentence": "She was happy to receive a high grade on her spelling test.", "hint": "A mark indicating quality or achievement" },
-                    { "word": "chance", "sentence": "Everyone deserves a second chance to try again.", "hint": "A possibility or opportunity" },
-                    { "word": "they", "sentence": "They went to the park together after school.", "hint": "Refers to two or more people" },
-                    { "word": "batch", "sentence": "Grandma baked a fresh batch of chocolate chip cookies.", "hint": "A quantity produced at one time" },
-                    { "word": "graph", "sentence": "We created a bar graph to display our science survey data.", "hint": "A diagram showing relationships between data" },
-                    { "word": "trade", "sentence": "I will trade my apple for your banana at lunch.", "hint": "To exchange one thing for another" },
-                    { "word": "raise", "sentence": "Please raise your hand if you know the answer.", "hint": "To lift or move upward" },
-                    { "word": "eight", "sentence": "An octopus has eight long arms.", "hint": "The number after seven" },
-                    { "word": "safety", "sentence": "Always wear a helmet for your safety while riding a bike.", "hint": "Protection from danger or risk" },
-                    { "word": "wrapped", "sentence": "She wrapped the birthday present in colorful paper.", "hint": "Covered or enclosed completely" },
-                    { "word": "laugh", "sentence": "The funny joke made everyone in the room laugh.", "hint": "To make sounds showing amusement" },
-                    { "word": "magical", "sentence": "The wizard performed a magical trick that amazed the audience.", "hint": "Having enchanting or supernatural qualities" },
-                    { "word": "station", "sentence": "We waited at the train station for our arrival.", "hint": "A stopping place on a transportation route" }
-                  ]
+                    "id": "week1",
+                    "title": "Week 1",
+                    "words": [
+                        { "word": "mask", "sentence": "He wore a superhero mask to the costume party.", "hint": "A covering worn over the face" },
+                        { "word": "track", "sentence": "The train runs along the metal track.", "hint": "A path or rail for vehicles" },
+                        { "word": "stamp", "sentence": "Don't forget to put a stamp on the envelope before mailing it.", "hint": "A small sticker used for postage" },
+                        { "word": "stage", "sentence": "The actors walked out onto the stage to perform.", "hint": "A raised platform for performances" },
+                        { "word": "grade", "sentence": "She was happy to receive a high grade on her spelling test.", "hint": "A mark indicating quality or achievement" },
+                        { "word": "chance", "sentence": "Everyone deserves a second chance to try again.", "hint": "A possibility or opportunity" },
+                        { "word": "they", "sentence": "They went to the park together after school.", "hint": "Refers to two or more people" },
+                        { "word": "batch", "sentence": "Grandma baked a fresh batch of chocolate chip cookies.", "hint": "A quantity produced at one time" },
+                        { "word": "graph", "sentence": "We created a bar graph to display our science survey data.", "hint": "A diagram showing relationships between data" },
+                        { "word": "trade", "sentence": "I will trade my apple for your banana at lunch.", "hint": "To exchange one thing for another" },
+                        { "word": "raise", "sentence": "Please raise your hand if you know the answer.", "hint": "To lift or move upward" },
+                        { "word": "eight", "sentence": "An octopus has eight long arms.", "hint": "The number after seven" },
+                        { "word": "safety", "sentence": "Always wear a helmet for your safety while riding a bike.", "hint": "Protection from danger or risk" },
+                        { "word": "wrapped", "sentence": "She wrapped the birthday present in colorful paper.", "hint": "Covered or enclosed completely" },
+                        { "word": "laugh", "sentence": "The funny joke made everyone in the room laugh.", "hint": "To make sounds showing amusement" },
+                        { "word": "magical", "sentence": "The wizard performed a magical trick that amazed the audience.", "hint": "Having enchanting or supernatural qualities" },
+                        { "word": "station", "sentence": "We waited at the train station for our arrival.", "hint": "A stopping place on a transportation route" }
+                    ]
                 }
             ]
         };
@@ -362,15 +432,15 @@
                 const now = this.ctx.currentTime;
                 const osc = this.ctx.createOscillator();
                 const gain = this.ctx.createGain();
-                
+
                 osc.type = 'sine';
                 osc.frequency.setValueAtTime(523.25, now); // C5
                 osc.frequency.exponentialRampToValueAtTime(659.25, now + 0.1); // E5
                 osc.frequency.exponentialRampToValueAtTime(783.99, now + 0.2); // G5
-                
+
                 gain.gain.setValueAtTime(0.25, now);
                 gain.gain.exponentialRampToValueAtTime(0.001, now + 0.4);
-                
+
                 osc.connect(gain);
                 gain.connect(this.ctx.destination);
                 osc.start(now);
@@ -382,14 +452,14 @@
                 const now = this.ctx.currentTime;
                 const osc = this.ctx.createOscillator();
                 const gain = this.ctx.createGain();
-                
+
                 osc.type = 'sawtooth';
                 osc.frequency.setValueAtTime(180, now);
                 osc.frequency.linearRampToValueAtTime(110, now + 0.2);
-                
+
                 gain.gain.setValueAtTime(0.2, now);
                 gain.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
-                
+
                 osc.connect(gain);
                 gain.connect(this.ctx.destination);
                 osc.start(now);
@@ -403,13 +473,13 @@
                     const now = this.ctx.currentTime + (idx * 0.12);
                     const osc = this.ctx.createOscillator();
                     const gain = this.ctx.createGain();
-                    
+
                     osc.type = 'triangle';
                     osc.frequency.setValueAtTime(freq, now);
-                    
+
                     gain.gain.setValueAtTime(0.25, now);
                     gain.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
-                    
+
                     osc.connect(gain);
                     gain.connect(this.ctx.destination);
                     osc.start(now);
@@ -454,10 +524,10 @@
                 // Fetch words.json relative to deployment root
                 const response = await fetch('./words.json');
                 if (!response.ok) throw new Error(`HTTP error ${response.status}`);
-                
+
                 const json = await response.json();
                 if (!json.weeks || !Array.isArray(json.weeks)) throw new Error("Invalid JSON format");
-                
+
                 weekData = json.weeks;
                 statusBanner.innerHTML = `<i class="fa-solid fa-circle-check text-green-500"></i> Loaded from words.json`;
                 statusBanner.className = "text-xs text-green-700 font-semibold bg-green-50 py-1.5 px-3 rounded-full border border-green-200 inline-block shadow-sm";
@@ -474,7 +544,7 @@
         function populateWeekDropdown() {
             const selectEl = document.getElementById('week-select');
             selectEl.innerHTML = '';
-            
+
             weekData.forEach(week => {
                 const opt = document.createElement('option');
                 opt.value = week.id;
@@ -507,7 +577,7 @@
            =================================================================== */
         function switchMode(mode) {
             currentMode = mode;
-            
+
             // Highlight Tab Buttons
             ['test', 'scramble', 'flashcard'].forEach(m => {
                 const btn = document.getElementById(`tab-${m}`);
@@ -553,7 +623,7 @@
             document.getElementById('progress-text').innerText = `Word ${currentWordIndex + 1} of ${total}`;
             document.getElementById('score-text').innerHTML = `<i class="fa-solid fa-star"></i> ${score}`;
             document.getElementById('streak-text').innerHTML = `<i class="fa-solid fa-fire"></i> ${streak}`;
-            
+
             const pct = total > 0 ? (currentWordIndex / total) * 100 : 0;
             document.getElementById('progress-bar').style.width = `${pct}%`;
         }
@@ -581,7 +651,7 @@
             input.className = "w-full text-center text-2xl sm:text-3xl font-extrabold py-3.5 px-4 rounded-2xl border-4 border-gray-200 focus:outline-none focus:border-purple-400 text-gray-800 transition-all shadow-inner uppercase tracking-wider";
             document.getElementById('test-feedback-icon').classList.add('hidden');
             document.getElementById('test-hint-text').classList.add('hidden');
-            
+
             // Auto focus on desktop
             if (window.innerWidth > 768) {
                 setTimeout(() => input.focus(), 100);
@@ -616,7 +686,7 @@
                 if (streak > maxStreak) maxStreak = streak;
 
                 input.className = "w-full text-center text-2xl sm:text-3xl font-extrabold py-3.5 px-4 rounded-2xl border-4 border-green-500 bg-green-50 text-green-800 transition-all shadow-inner uppercase tracking-wider pulse-success";
-                
+
                 confetti({ particleCount: 60, spread: 60, origin: { y: 0.7 } });
 
                 setTimeout(() => {
@@ -629,7 +699,7 @@
                 input.classList.remove('shake');
                 void input.offsetWidth; // trigger layout reflow
                 input.className = "w-full text-center text-2xl sm:text-3xl font-extrabold py-3.5 px-4 rounded-2xl border-4 border-red-400 bg-red-50 text-red-800 transition-all shadow-inner uppercase tracking-wider shake";
-                
+
                 setTimeout(() => {
                     input.value = '';
                     updateDashboardUI();
@@ -648,7 +718,7 @@
 
             selectedScrambleLetters = [];
             const originalLetters = wObj.word.toUpperCase().split('');
-            
+
             // Shuffle letters
             let shuffled = [...originalLetters];
             for (let i = shuffled.length - 1; i > 0; i--) {
@@ -666,7 +736,7 @@
         function renderScrambleUI(poolLetters) {
             const slotsContainer = document.getElementById('scramble-answer-slots');
             const poolContainer = document.getElementById('scramble-letters-pool');
-            
+
             slotsContainer.innerHTML = '';
             poolContainer.innerHTML = '';
 
@@ -707,7 +777,7 @@
             const removed = selectedScrambleLetters.splice(index, 1)[0];
             const wObj = getCurrentWordObj();
             const originalLetters = wObj.word.toUpperCase().split('');
-            
+
             // Reconstruct pool from remaining letters
             let currentLetters = [...selectedScrambleLetters];
             let remainingPool = [];
@@ -757,7 +827,7 @@
 
             flashcardFlipped = false;
             document.getElementById('flashcard-inner').classList.remove('rotate-y-180');
-            
+
             document.getElementById('card-front-word').innerText = wObj.word.toUpperCase();
             document.getElementById('card-back-hint').innerText = wObj.hint || "Grade 4 Word";
             document.getElementById('card-back-sentence').innerText = wObj.sentence || `"${wObj.word}"`;
@@ -797,7 +867,7 @@
             document.getElementById('view-scramble').classList.add('hidden');
             document.getElementById('view-flashcard').classList.add('hidden');
             document.getElementById('stats-bar').classList.add('hidden');
-            
+
             document.getElementById('view-complete').classList.remove('hidden');
             document.getElementById('view-complete').classList.add('flex');
 
@@ -822,4 +892,5 @@
         window.addEventListener('DOMContentLoaded', loadWordData);
     </script>
 </body>
+
 </html>
