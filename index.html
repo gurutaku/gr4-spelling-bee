@@ -55,9 +55,204 @@
         }
 
         body {
+            position: relative;
+            isolation: isolate;
             font-family: 'Fredoka', 'Nunito', sans-serif;
-            background: linear-gradient(135deg, #e0f2fe 0%, #fbcfe8 50%, #fef3c7 100%);
+            background:
+                radial-gradient(ellipse at 12% 8%, #542c86 0, transparent 38%),
+                radial-gradient(ellipse at 90% 92%, #a34420 0, transparent 34%),
+                linear-gradient(145deg, #170f2e 0%, #291443 55%, #431b3c 100%);
             min-height: 100vh;
+        }
+
+        body::before,
+        body::after {
+            position: fixed;
+            z-index: 0;
+            pointer-events: none;
+            font-size: clamp(2rem, 7vw, 4rem);
+            opacity: .82;
+            filter: drop-shadow(0 4px 12px #09051a88);
+        }
+
+        body > div {
+            position: relative;
+            z-index: 1;
+        }
+
+        body::before {
+            content: "🦇";
+            top: 1.5rem;
+            left: max(1rem, calc((100vw - 52rem) / 2));
+            transform: rotate(-12deg);
+        }
+
+        body::after {
+            content: "🎃";
+            right: max(1rem, calc((100vw - 52rem) / 2));
+            bottom: 1.5rem;
+            transform: rotate(10deg);
+        }
+
+        .halloween-header {
+            background: rgba(255, 247, 225, .96) !important;
+            border-color: #fb923c !important;
+            box-shadow: 0 12px 30px #09051a55 !important;
+        }
+
+        .halloween-header h1 {
+            color: #4c1d72 !important;
+        }
+
+        .halloween-header p {
+            color: #754465 !important;
+        }
+
+        .halloween-header .halloween-mark {
+            background: linear-gradient(145deg, #fbbf24, #f97316) !important;
+            box-shadow: 0 5px 14px #ea580c55;
+        }
+
+        .halloween-header select {
+            background-color: #fff7df !important;
+            border-color: #fb923c !important;
+            color: #431b3c !important;
+        }
+
+        .halloween-tabs {
+            background: rgba(43, 24, 66, .88) !important;
+            border-color: #8b5aa0 !important;
+            box-shadow: inset 0 2px 8px #12091f99 !important;
+        }
+
+        .halloween-tabs button {
+            color: #f3e8ff !important;
+        }
+
+        .halloween-tabs button.bg-white {
+            background: #fbbf24 !important;
+            color: #35164e !important;
+            box-shadow: 0 2px 8px #09051a66 !important;
+        }
+
+        .halloween-main {
+            background: #fffaf0 !important;
+            border-color: #fbbf24 !important;
+            box-shadow: 0 18px 45px #09051a66 !important;
+        }
+
+        .halloween-main #progress-text,
+        .halloween-main h2 {
+            color: #3b1c50 !important;
+        }
+
+        .halloween-main #progress-bar {
+            background: linear-gradient(90deg, #f97316, #fbbf24, #8b5cf6) !important;
+        }
+
+        .halloween-main #view-test > div:first-child {
+            background: #fff1d6 !important;
+            border-color: #fdba74 !important;
+        }
+
+        .halloween-main #view-test > div:first-child > p:first-child {
+            color: #7c3aed !important;
+        }
+
+        .halloween-main #view-test button[onclick="playTargetWord()"],
+        .halloween-main #view-scramble > button[onclick="playTargetWord()"],
+        .halloween-main #view-flashcard .bg-pink-500,
+        .halloween-main #view-flashcard .bg-pink-500:hover {
+            background: linear-gradient(135deg, #7c3aed, #5b21b6) !important;
+            color: #fff !important;
+        }
+
+        .halloween-main #view-test button[onclick="playTargetWord(true)"] {
+            background: #f3e8ff !important;
+            color: #5b21b6 !important;
+        }
+
+        .halloween-main #view-test button[onclick="speakSentence()"],
+        .halloween-main #view-test button[onclick="toggleHint()"] {
+            background: #fffaf0 !important;
+            border-color: #fdba74 !important;
+            color: #6d28d9 !important;
+        }
+
+        .halloween-main #view-test button[onclick="speakSentence()"] i,
+        .halloween-main #view-test button[onclick="toggleHint()"] i {
+            color: #ea580c !important;
+        }
+
+        .halloween-main #view-test input {
+            border-color: #d8b4fe !important;
+            color: #35164e !important;
+        }
+
+        .halloween-main #view-test input:focus {
+            border-color: #f97316 !important;
+        }
+
+        .halloween-main #view-test > button:last-child,
+        .halloween-main #view-scramble button[onclick="checkScrambleAnswer()"] {
+            background: linear-gradient(110deg, #f97316, #c2410c) !important;
+            color: #fff !important;
+            box-shadow: 0 8px 20px #ea580c44 !important;
+        }
+
+        .halloween-main #view-scramble > p,
+        .halloween-main #view-scramble > button[onclick="playTargetWord()"] {
+            color: #6d28d9 !important;
+        }
+
+        .halloween-main #scramble-letters-pool {
+            background: #f5efff !important;
+            border-color: #c4a7e8 !important;
+        }
+
+        .halloween-main #flashcard-inner {
+            border-color: #f59e0b !important;
+        }
+
+        .halloween-main #flashcard-inner > div:first-child {
+            background: linear-gradient(145deg, #6d28d9, #3b1c50) !important;
+        }
+
+        .halloween-main #flashcard-inner > div:last-child {
+            background: #fff7df !important;
+            border-color: #fdba74 !important;
+            color: #3b1c50 !important;
+        }
+
+        .halloween-main #view-complete > div:first-child {
+            filter: drop-shadow(0 4px 8px #f59e0b55);
+        }
+
+        .halloween-main #view-complete > div:nth-of-type(2) {
+            background: #fff1d6 !important;
+            border-color: #fdba74 !important;
+        }
+
+        .halloween-main #view-complete button {
+            background: linear-gradient(110deg, #7c3aed, #5b21b6) !important;
+            box-shadow: 0 8px 20px #6d28d944 !important;
+        }
+
+        .halloween-footer #status-banner {
+            background: rgba(255, 247, 225, .92) !important;
+            border-color: #fb923c !important;
+            color: #4c1d72 !important;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                animation-duration: .01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: .01ms !important;
+            }
         }
 
         /* 3D Flashcard flip animation */
@@ -134,21 +329,21 @@
     </style>
 </head>
 
-<body class="flex flex-col items-center justify-between p-3 sm:p-6 min-h-screen">
+<body class="flex flex-col items-center justify-between p-3 sm:p-6 min-h-screen halloween-theme">
 
     <div class="w-full max-w-2xl mx-auto flex-grow flex flex-col justify-between">
 
         <!-- Header & Week Dropdown -->
         <header
-            class="w-full bg-white/80 backdrop-blur-md rounded-2xl p-4 mb-4 shadow-md border border-white/60 flex flex-col sm:flex-row items-center justify-between gap-3">
+            class="halloween-header w-full bg-white/80 backdrop-blur-md rounded-2xl p-4 mb-4 shadow-md border border-white/60 flex flex-col sm:flex-row items-center justify-between gap-3">
             <div class="flex items-center gap-3">
                 <div
-                    class="bg-amber-400 text-white w-12 h-12 rounded-2xl flex items-center justify-center text-2xl shadow-sm">
-                    <i class="fa-solid fa-bee"></i>
+                    class="halloween-mark bg-amber-400 text-white w-12 h-12 rounded-2xl flex items-center justify-center text-2xl shadow-sm">
+                    <span aria-hidden="true">🎃</span>
                 </div>
                 <div>
-                    <h1 class="text-xl sm:text-2xl font-bold text-gray-800 leading-tight">Spelling Bee</h1>
-                    <p class="text-xs text-gray-500 font-semibold">Grade 4 Weekly Spelling Game</p>
+                    <h1 class="text-xl sm:text-2xl font-bold text-gray-800 leading-tight">Spelling Bat</h1>
+                    <p class="text-xs text-gray-500 font-semibold">A word adventure for Grade 4 - Halloween Edition</p>
                 </div>
             </div>
 
@@ -162,7 +357,7 @@
         </header>
 
         <!-- Mode Navigation Tabs -->
-        <div class="flex justify-center gap-2 mb-4 bg-white/60 p-1.5 rounded-2xl border border-white/40 shadow-inner">
+        <div class="halloween-tabs flex justify-center gap-2 mb-4 bg-white/60 p-1.5 rounded-2xl border border-white/40 shadow-inner">
             <button id="tab-test" onclick="switchMode('test')"
                 class="flex-1 py-2 px-3 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-1.5 transition-all bg-white text-purple-600 shadow-sm">
                 <i class="fa-solid fa-pen-to-square text-base"></i>
@@ -182,7 +377,7 @@
 
         <!-- Main Game Card -->
         <main
-            class="bg-white rounded-3xl shadow-xl p-5 sm:p-8 relative border-4 border-white/80 flex-grow flex flex-col justify-between mb-4">
+            class="halloween-main bg-white rounded-3xl shadow-xl p-5 sm:p-8 relative border-4 border-white/80 flex-grow flex flex-col justify-between mb-4">
 
             <!-- Dashboard Stats Bar -->
             <div id="stats-bar" class="mb-6">
@@ -374,7 +569,7 @@
         </main>
 
         <!-- Footer / Data Load Status Banner -->
-        <footer class="w-full text-center">
+        <footer class="halloween-footer w-full text-center">
             <div id="status-banner"
                 class="text-xs text-slate-500 font-semibold bg-white/40 backdrop-blur-sm py-1.5 px-3 rounded-full border border-white/50 inline-block shadow-sm">
                 <i class="fa-solid fa-spinner fa-spin mr-1 text-amber-500"></i> Connecting to ...
