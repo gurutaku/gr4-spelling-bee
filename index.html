@@ -119,6 +119,65 @@
             color: #431b3c !important;
         }
 
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            width: 100%;
+        }
+
+        .header-controls > div {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .games-hub-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+            padding: 9px 14px;
+            border: 1px solid #f2c9dd;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #fff5cf, #ffe8f1);
+            box-shadow: 0 3px 0 #ecc8dc;
+            color: #694978;
+            font-family: ui-rounded, system-ui, sans-serif;
+            font-size: 14px;
+            font-weight: 850;
+            line-height: 1.2;
+            text-decoration: none;
+            white-space: nowrap;
+            transition: transform .12s, box-shadow .12s;
+            flex-shrink: 0;
+        }
+
+        .games-hub-link:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 0 #ecc8dc;
+        }
+
+        .games-hub-link:focus-visible {
+            outline: 3px solid #ffb84d;
+            outline-offset: 3px;
+        }
+
+        @media (min-width: 640px) {
+            .header-controls {
+                width: auto;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .games-hub-link {
+                padding: 9px 11px;
+            }
+
+            .games-hub-label {
+                display: none;
+            }
+        }
+
         .halloween-tabs {
             background: rgba(43, 24, 66, .88) !important;
             border-color: #8b5aa0 !important;
@@ -346,12 +405,17 @@
                 </div>
             </div>
 
-            <!-- Dynamic Week Selector -->
-            <div class="w-full sm:w-auto">
-                <select id="week-select" onchange="switchWeek(this.value)"
-                    class="w-full sm:w-auto bg-amber-50 border-2 border-amber-300 text-gray-800 text-sm font-bold rounded-xl px-3 py-2 focus:outline-none focus:border-amber-500 cursor-pointer shadow-sm">
-                    <option value="">Loading lists...</option>
-                </select>
+            <div class="header-controls">
+                <!-- Dynamic Week Selector -->
+                <div>
+                    <select id="week-select" onchange="switchWeek(this.value)"
+                        class="w-full sm:w-auto bg-amber-50 border-2 border-amber-300 text-gray-800 text-sm font-bold rounded-xl px-3 py-2 focus:outline-none focus:border-amber-500 cursor-pointer shadow-sm">
+                        <option value="">Loading lists...</option>
+                    </select>
+                </div>
+                <a class="games-hub-link" href="https://gurutaku.ca/coolgames/"
+                    aria-label="Back to Gurutaku Cool Games" title="Back to Gurutaku Cool Games"><span
+                        aria-hidden="true">🎮</span><span class="games-hub-label">More Games</span></a>
             </div>
         </header>
 
