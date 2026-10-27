@@ -2,32 +2,181 @@
            1. DEFAULT FALLBACK DATA (Used if words.json is missing or offline)
            =================================================================== */
         const FALLBACK_DATA = {
-            "weeks": [
-                {
-                    "id": "week1",
-                    "title": "Week 1",
-                    "words": [
-                        { "word": "mask", "sentence": "He wore a superhero mask to the costume party.", "hint": "A covering worn over the face" },
-                        { "word": "track", "sentence": "The train runs along the metal track.", "hint": "A path or rail for vehicles" },
-                        { "word": "stamp", "sentence": "Don't forget to put a stamp on the envelope before mailing it.", "hint": "A small sticker used for postage" },
-                        { "word": "stage", "sentence": "The actors walked out onto the stage to perform.", "hint": "A raised platform for performances" },
-                        { "word": "grade", "sentence": "She was happy to receive a high grade on her spelling test.", "hint": "A mark indicating quality or achievement" },
-                        { "word": "chance", "sentence": "Everyone deserves a second chance to try again.", "hint": "A possibility or opportunity" },
-                        { "word": "they", "sentence": "They went to the park together after school.", "hint": "Refers to two or more people" },
-                        { "word": "batch", "sentence": "Grandma baked a fresh batch of chocolate chip cookies.", "hint": "A quantity produced at one time" },
-                        { "word": "graph", "sentence": "We created a bar graph to display our science survey data.", "hint": "A diagram showing relationships between data" },
-                        { "word": "trade", "sentence": "I will trade my apple for your banana at lunch.", "hint": "To exchange one thing for another" },
-                        { "word": "raise", "sentence": "Please raise your hand if you know the answer.", "hint": "To lift or move upward" },
-                        { "word": "eight", "sentence": "An octopus has eight long arms.", "hint": "The number after seven" },
-                        { "word": "safety", "sentence": "Always wear a helmet for your safety while riding a bike.", "hint": "Protection from danger or risk" },
-                        { "word": "wrapped", "sentence": "She wrapped the birthday present in colorful paper.", "hint": "Covered or enclosed completely" },
-                        { "word": "laugh", "sentence": "The funny joke made everyone in the room laugh.", "hint": "To make sounds showing amusement" },
-                        { "word": "magical", "sentence": "The wizard performed a magical trick that amazed the audience.", "hint": "Having enchanting or supernatural qualities" },
-                        { "word": "station", "sentence": "We waited at the train station for our arrival.", "hint": "A stopping place on a transportation route" }
-                    ]
-                }
-            ]
-        };
+	"weeks": [
+		{
+			"id": "week1",
+			"title": "Week 1",
+			"words": [
+				{
+					"word": "mask",
+					"sentence": "He wore a superhero mask to the costume party.",
+					"hint": "A covering worn over the face"
+				},
+				{
+					"word": "track",
+					"sentence": "The train runs along the metal track.",
+					"hint": "A path or rail for vehicles"
+				},
+				{
+					"word": "stamp",
+					"sentence": "Don't forget to put a stamp on the envelope before mailing it.",
+					"hint": "A small sticker used for postage"
+				},
+				{
+					"word": "stage",
+					"sentence": "The actors walked out onto the stage to perform.",
+					"hint": "A raised platform for performances"
+				},
+				{
+					"word": "grade",
+					"sentence": "She was happy to receive a high grade on her spelling test.",
+					"hint": "A mark indicating quality or achievement"
+				},
+				{
+					"word": "chance",
+					"sentence": "Everyone deserves a second chance to try again.",
+					"hint": "A possibility or opportunity"
+				},
+				{
+					"word": "they",
+					"sentence": "They went to the park together after school.",
+					"hint": "Refers to two or more people"
+				},
+				{
+					"word": "batch",
+					"sentence": "Grandma baked a fresh batch of chocolate chip cookies.",
+					"hint": "A quantity produced at one time"
+				},
+				{
+					"word": "graph",
+					"sentence": "We created a bar graph to display our science survey data.",
+					"hint": "A diagram showing relationships between data"
+				},
+				{
+					"word": "trade",
+					"sentence": "I will trade my apple for your banana at lunch.",
+					"hint": "To exchange one thing for another"
+				},
+				{
+					"word": "raise",
+					"sentence": "Please raise your hand if you know the answer.",
+					"hint": "To lift or move upward"
+				},
+				{
+					"word": "eight",
+					"sentence": "An octopus has eight long arms.",
+					"hint": "The number after seven"
+				},
+				{
+					"word": "safety",
+					"sentence": "Always wear a helmet for your safety while riding a bike.",
+					"hint": "Protection from danger or risk"
+				},
+				{
+					"word": "wrapped",
+					"sentence": "She wrapped the birthday present in colorful paper.",
+					"hint": "Covered or enclosed completely"
+				},
+				{
+					"word": "laugh",
+					"sentence": "The funny joke made everyone in the room laugh.",
+					"hint": "To make sounds showing amusement"
+				},
+				{
+					"word": "magical",
+					"sentence": "The wizard performed a magical trick that amazed the audience.",
+					"hint": "Having enchanting or supernatural qualities"
+				},
+				{
+					"word": "station",
+					"sentence": "We waited at the train station for our arrival.",
+					"hint": "A stopping place on a transportation route"
+				}
+			]
+		},
+		{
+			"id": "week2",
+			"title": "Week 2",
+			"words": [
+				{
+					"word": "golfer",
+					"sentence": "The golfer practised hitting the ball across the green grass.",
+					"hint": "A person who plays golf"
+				},
+				{
+					"word": "felt",
+					"sentence": "She felt happy when her friend invited her to play.",
+					"hint": "Experienced a feeling or emotion"
+				},
+				{
+					"word": "farmer",
+					"sentence": "The farmer grew fresh vegetables on the family farm.",
+					"hint": "A person who grows crops or raises animals"
+				},
+				{
+					"word": "full",
+					"sentence": "The glass was full of cold water.",
+					"hint": "Containing as much as possible"
+				},
+				{
+					"word": "feelings",
+					"sentence": "Talking about our feelings can help us understand each other.",
+					"hint": "Emotions such as happiness, sadness, or anger"
+				},
+				{
+					"word": "family",
+					"sentence": "Our family went camping together during the summer holidays.",
+					"hint": "A group of people who are related or care for one another"
+				},
+				{
+					"word": "cough",
+					"sentence": "Cover your mouth when you cough to help prevent the spread of germs.",
+					"hint": "To force air out of your throat suddenly"
+				},
+				{
+					"word": "enough",
+					"sentence": "We brought enough food for everyone at the picnic.",
+					"hint": "As much or as many as needed"
+				},
+				{
+					"word": "roof",
+					"sentence": "The roof kept the rain from entering the house.",
+					"hint": "The top covering of a building"
+				},
+				{
+					"word": "rough",
+					"sentence": "The rough surface of the rock felt bumpy against my hand.",
+					"hint": "Not smooth; having an uneven surface"
+				},
+				{
+					"word": "forgetful",
+					"sentence": "My forgetful brother sometimes leaves his lunch at home.",
+					"hint": "Often failing to remember things"
+				},
+				{
+					"word": "fashion",
+					"sentence": "The students learned how fashion styles have changed over time.",
+					"hint": "A popular style of clothing or appearance"
+				},
+				{
+					"word": "photograph",
+					"sentence": "We took a photograph of the beautiful sunset at the beach.",
+					"hint": "A picture taken with a camera"
+				},
+				{
+					"word": "habitat",
+					"sentence": "A forest is a habitat for many birds and animals.",
+					"hint": "The natural home of a plant or animal"
+				},
+				{
+					"word": "ecosystem",
+					"sentence": "A pond ecosystem includes fish, plants, insects, and water.",
+					"hint": "A community of living things interacting with their environment"
+				}
+			]
+		}
+	]
+};
 
         /* ===================================================================
            2. WEB AUDIO SYNTHESIZER (No external audio files required)
