@@ -94,18 +94,6 @@
             transform: rotate(10deg);
         }
 
-        /* Footer */
-        footer {
-        text-align: center;
-        padding: 35px 24px;
-        color: #78909c;
-        font-size: 0.9rem;
-        }
-
-        footer strong {
-        color: #455a64;
-        }
-
         .halloween-header {
             background: rgba(255, 247, 225, .96) !important;
             border-color: #fb923c !important;
@@ -643,11 +631,12 @@
 
         </main>
 
-        <!-- Footer -->
-        <footer>
-          <strong>🎮 Gurutaku</strong> — Make Learning Fun.
-          <br>
-          © 2026 Gurutaku. All rights reserved.
+        <!-- Footer / Data Load Status Banner -->
+        <footer class="halloween-footer w-full text-center">
+            <div id="status-banner"
+                class="text-xs text-slate-500 font-semibold bg-white/40 backdrop-blur-sm py-1.5 px-3 rounded-full border border-white/50 inline-block shadow-sm">
+                <i class="fa-solid fa-spinner fa-spin mr-1 text-amber-500"></i> Connecting to ...
+            </div>
         </footer>
 
     </div>
