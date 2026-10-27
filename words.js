@@ -3,6 +3,87 @@
            =================================================================== */
         const FALLBACK_DATA = {
 	"weeks": [
+        {
+			"id": "week2",
+			"title": "Week 2",
+			"words": [
+				{
+					"word": "golfer",
+					"sentence": "The golfer practised hitting the ball across the green grass.",
+					"hint": "A person who plays golf"
+				},
+				{
+					"word": "felt",
+					"sentence": "She felt happy when her friend invited her to play.",
+					"hint": "Experienced a feeling or emotion"
+				},
+				{
+					"word": "farmer",
+					"sentence": "The farmer grew fresh vegetables on the family farm.",
+					"hint": "A person who grows crops or raises animals"
+				},
+				{
+					"word": "full",
+					"sentence": "The glass was full of cold water.",
+					"hint": "Containing as much as possible"
+				},
+				{
+					"word": "feelings",
+					"sentence": "Talking about our feelings can help us understand each other.",
+					"hint": "Emotions such as happiness, sadness, or anger"
+				},
+				{
+					"word": "family",
+					"sentence": "Our family went camping together during the summer holidays.",
+					"hint": "A group of people who are related or care for one another"
+				},
+				{
+					"word": "cough",
+					"sentence": "Cover your mouth when you cough to help prevent the spread of germs.",
+					"hint": "To force air out of your throat suddenly"
+				},
+				{
+					"word": "enough",
+					"sentence": "We brought enough food for everyone at the picnic.",
+					"hint": "As much or as many as needed"
+				},
+				{
+					"word": "roof",
+					"sentence": "The roof kept the rain from entering the house.",
+					"hint": "The top covering of a building"
+				},
+				{
+					"word": "rough",
+					"sentence": "The rough surface of the rock felt bumpy against my hand.",
+					"hint": "Not smooth; having an uneven surface"
+				},
+				{
+					"word": "forgetful",
+					"sentence": "My forgetful brother sometimes leaves his lunch at home.",
+					"hint": "Often failing to remember things"
+				},
+				{
+					"word": "fashion",
+					"sentence": "The students learned how fashion styles have changed over time.",
+					"hint": "A popular style of clothing or appearance"
+				},
+				{
+					"word": "photograph",
+					"sentence": "We took a photograph of the beautiful sunset at the beach.",
+					"hint": "A picture taken with a camera"
+				},
+				{
+					"word": "habitat",
+					"sentence": "A forest is a habitat for many birds and animals.",
+					"hint": "The natural home of a plant or animal"
+				},
+				{
+					"word": "ecosystem",
+					"sentence": "A pond ecosystem includes fish, plants, insects, and water.",
+					"hint": "A community of living things interacting with their environment"
+				}
+			]
+		},
 		{
 			"id": "week1",
 			"title": "Week 1",
@@ -93,87 +174,6 @@
 					"hint": "A stopping place on a transportation route"
 				}
 			]
-		},
-		{
-			"id": "week2",
-			"title": "Week 2",
-			"words": [
-				{
-					"word": "golfer",
-					"sentence": "The golfer practised hitting the ball across the green grass.",
-					"hint": "A person who plays golf"
-				},
-				{
-					"word": "felt",
-					"sentence": "She felt happy when her friend invited her to play.",
-					"hint": "Experienced a feeling or emotion"
-				},
-				{
-					"word": "farmer",
-					"sentence": "The farmer grew fresh vegetables on the family farm.",
-					"hint": "A person who grows crops or raises animals"
-				},
-				{
-					"word": "full",
-					"sentence": "The glass was full of cold water.",
-					"hint": "Containing as much as possible"
-				},
-				{
-					"word": "feelings",
-					"sentence": "Talking about our feelings can help us understand each other.",
-					"hint": "Emotions such as happiness, sadness, or anger"
-				},
-				{
-					"word": "family",
-					"sentence": "Our family went camping together during the summer holidays.",
-					"hint": "A group of people who are related or care for one another"
-				},
-				{
-					"word": "cough",
-					"sentence": "Cover your mouth when you cough to help prevent the spread of germs.",
-					"hint": "To force air out of your throat suddenly"
-				},
-				{
-					"word": "enough",
-					"sentence": "We brought enough food for everyone at the picnic.",
-					"hint": "As much or as many as needed"
-				},
-				{
-					"word": "roof",
-					"sentence": "The roof kept the rain from entering the house.",
-					"hint": "The top covering of a building"
-				},
-				{
-					"word": "rough",
-					"sentence": "The rough surface of the rock felt bumpy against my hand.",
-					"hint": "Not smooth; having an uneven surface"
-				},
-				{
-					"word": "forgetful",
-					"sentence": "My forgetful brother sometimes leaves his lunch at home.",
-					"hint": "Often failing to remember things"
-				},
-				{
-					"word": "fashion",
-					"sentence": "The students learned how fashion styles have changed over time.",
-					"hint": "A popular style of clothing or appearance"
-				},
-				{
-					"word": "photograph",
-					"sentence": "We took a photograph of the beautiful sunset at the beach.",
-					"hint": "A picture taken with a camera"
-				},
-				{
-					"word": "habitat",
-					"sentence": "A forest is a habitat for many birds and animals.",
-					"hint": "The natural home of a plant or animal"
-				},
-				{
-					"word": "ecosystem",
-					"sentence": "A pond ecosystem includes fish, plants, insects, and water.",
-					"hint": "A community of living things interacting with their environment"
-				}
-			]
 		}
 	]
 };
@@ -255,34 +255,14 @@
            3. WEB SPEECH API (Voice pronouncer & sentences)
            =================================================================== */
         function speakText(text, rate = 0.85) {
-            if (!('speechSynthesis' in window)) return;
-
-            const synth = window.speechSynthesis;
-            synth.cancel();
-
-            const utterance = new SpeechSynthesisUtterance(text);
-            utterance.lang = 'en-US';
-            utterance.rate = rate;
-            utterance.pitch = 1.0;
-
-            const voices = synth.getVoices();
-
-            const voice =
-                voices.find(v =>
-                    v.lang.toLowerCase() === 'en-us' && v.default
-                ) ||
-                voices.find(v =>
-                    v.lang.toLowerCase() === 'en-us'
-                ) ||
-                voices.find(v =>
-                    v.lang.toLowerCase().startsWith('en')
-                );
-
-            if (voice) {
-                utterance.voice = voice;
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel(); // Stop active speech
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.rate = rate;
+                utterance.pitch = 1.05; // Slightly cheerful pitch
+                utterance.lang = 'en-US';
+                window.speechSynthesis.speak(utterance);
             }
-
-            synth.speak(utterance);
         }
 
         /* ===================================================================
@@ -417,13 +397,7 @@
 
         function playTargetWord(slow = false) {
             const wObj = getCurrentWordObj();
-            if (!wObj) return;
-
-            const key = wObj.word.toLowerCase();
-            const spokenWord = WORD_SAY_AS[key] || wObj.word;
-
-            // Slower than normal, without slowing speech excessively.
-            speakText(spokenWord, slow ? 0.6 : 0.85);
+            if (wObj) speakText(wObj.word, slow ? 0.35 : 0.85);
         }
 
         function speakSentence() {
