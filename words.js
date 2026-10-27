@@ -255,14 +255,34 @@
            3. WEB SPEECH API (Voice pronouncer & sentences)
            =================================================================== */
         function speakText(text, rate = 0.85) {
-            if ('speechSynthesis' in window) {
-                window.speechSynthesis.cancel(); // Stop active speech
-                const utterance = new SpeechSynthesisUtterance(text);
-                utterance.rate = rate;
-                utterance.pitch = 1.05; // Slightly cheerful pitch
-                utterance.lang = 'en-US';
-                window.speechSynthesis.speak(utterance);
+            if (!('speechSynthesis' in window)) return;
+
+            const synth = window.speechSynthesis;
+            synth.cancel();
+
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'en-US';
+            utterance.rate = rate;
+            utterance.pitch = 1.0;
+
+            const voices = synth.getVoices();
+
+            const voice =
+                voices.find(v =>
+                    v.lang.toLowerCase() === 'en-us' && v.default
+                ) ||
+                voices.find(v =>
+                    v.lang.toLowerCase() === 'en-us'
+                ) ||
+                voices.find(v =>
+                    v.lang.toLowerCase().startsWith('en')
+                );
+
+            if (voice) {
+                utterance.voice = voice;
             }
+
+            synth.speak(utterance);
         }
 
         /* ===================================================================
@@ -397,7 +417,13 @@
 
         function playTargetWord(slow = false) {
             const wObj = getCurrentWordObj();
-            if (wObj) speakText(wObj.word, slow ? 0.35 : 0.85);
+            if (!wObj) return;
+
+            const key = wObj.word.toLowerCase();
+            const spokenWord = WORD_SAY_AS[key] || wObj.word;
+
+            // Slower than normal, without slowing speech excessively.
+            speakText(spokenWord, slow ? 0.6 : 0.85);
         }
 
         function speakSentence() {
