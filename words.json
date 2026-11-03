@@ -1,6 +1,87 @@
 {
 	"weeks": [
 		{
+			"id": "week3",
+			"title": "Week 3",
+			"words": [
+				{
+					"word": "arrival",
+					"sentence": "We eagerly awaited the arrival of our grandparents at the airport.",
+					"hint": "The act of coming to a place"
+				},
+				{
+					"word": "approve",
+					"sentence": "The students voted to approve the plans for the new classroom.",
+					"hint": "To officially agree to or accept something"
+				},
+				{
+					"word": "succeed",
+					"sentence": "With hard work and practice, you can succeed in reaching your goals.",
+					"hint": "To achieve the desired outcome or goal"
+				},
+				{
+					"word": "cabbage",
+					"sentence": "The chef chopped crisp green cabbage to make a fresh coleslaw.",
+					"hint": "A leafy green or purple vegetable with thick layers"
+				},
+				{
+					"word": "traffic",
+					"sentence": "Heavy morning traffic caused us to be a few minutes late for school.",
+					"hint": "Vehicles moving along a road or street"
+				},
+				{
+					"word": "proceed",
+					"sentence": "After checking the map, they decided to proceed down the main highway.",
+					"hint": "To continue doing something or move forward"
+				},
+				{
+					"word": "equally",
+					"sentence": "The teacher made sure to share the art supplies equally among all the students.",
+					"hint": "In the same amount, degree, or value"
+				},
+				{
+					"word": "glimmer",
+					"sentence": "We saw a faint glimmer of light shining from the cabin window in the dark.",
+					"hint": "A weak or intermittent light"
+				},
+				{
+					"word": "accidental",
+					"sentence": "Dropping the glass was accidental, but we cleaned it up right away.",
+					"hint": "Happening by chance or without intention"
+				},
+				{
+					"word": "occupied",
+					"sentence": "The front row seats were already occupied by other guests.",
+					"hint": "In use or filled by someone or something"
+				},
+				{
+					"word": "install",
+					"sentence": "Dad used tools to install the new bookshelf securely against the wall.",
+					"hint": "To place or fix equipment in position ready for use"
+				},
+				{
+					"word": "fitness",
+					"sentence": "Regular running and swimming are great ways to maintain good physical fitness.",
+					"hint": "The condition of being physically healthy and strong"
+				},
+				{
+					"word": "worried",
+					"sentence": "She felt a bit worried when her puppy didn't come right back inside.",
+					"hint": "Feeling anxious or concerned about a problem"
+				},
+				{
+					"word": "officer",
+					"sentence": "The friendly police officer helped us cross the busy street safely.",
+					"hint": "A person holding a position of authority, such as in law enforcement"
+				},
+				{
+					"word": "career",
+					"sentence": "She decided to pursue a career in science to help explore outer space.",
+					"hint": "An occupation undertaken for a significant period of a person's life"
+				}
+			]
+		},		
+		{
 			"id": "week2",
 			"title": "Week 2",
 			"words": [
